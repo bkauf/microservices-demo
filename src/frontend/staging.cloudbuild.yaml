@@ -16,7 +16,7 @@ steps:
   - 'deployment/frontend'
   - 'server=gcr.io/cicd-march-25th/frontend:$COMMIT_SHA'
   env:
-  - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a	'
+  - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
   - 'CLOUDSDK_CONTAINER_CLUSTER=staging-cluster-1'
   - 'CLOUDSDK_CORE_PROJECT=cicd-march-25th'
 #options:

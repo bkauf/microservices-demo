@@ -19,5 +19,5 @@ steps:
   - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
   - 'CLOUDSDK_CONTAINER_CLUSTER=spinnaker-tutorial'
   - 'CLOUDSDK_CORE_PROJECT=cicd-event-march25th'
-#options:
+options:
  machineType: 'N1_HIGHCPU_8'

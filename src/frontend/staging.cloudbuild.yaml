@@ -2,11 +2,11 @@ steps:
 
 - id: 'Create Container'
   name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '--tag=gcr.io/cicd-event-march-25th/frontend:$TAG_NAME', 'src/frontend/']
+  args: ['build', '--tag=gcr.io/cicd-march-25th/frontend:$COMMIT_SHA', 'src/frontend/']
 
 - id: 'Push Container to Staging registry'
   name: 'gcr.io/cloud-builders/docker'
-  args: ["push", "gcr.io/cicd-event-march-25th/frontend:$TAG_NAME"]
+  args: ["push", "gcr.io/cicd-march-25th/frontend:$COMMIT_SHA"]
 
 - id: 'Deploy to Staging Cluster'
   name: 'gcr.io/cloud-builders/kubectl'
@@ -14,10 +14,10 @@ steps:
   - 'set'
   - 'image'
   - 'deployment/frontend'
-  - 'server=gcr.io/cicd-event-march-25th/frontend:$TAG_NAME'
+  - 'server=gcr.io/cicd-march-25th/frontend:$COMMIT_SHA'
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
-  - 'CLOUDSDK_CONTAINER_CLUSTER=spinnaker-tutorial'
-  - 'CLOUDSDK_CORE_PROJECT=cicd-event-march-25th'
-options:
- machineType: 'N1_HIGHCPU_8'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=staging-cluster-1'
+  - 'CLOUDSDK_CORE_PROJECT=cicd-march-25th'
+#options:
+ #machineType: 'N1_HIGHCPU_8'

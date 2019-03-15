@@ -2,7 +2,7 @@ steps:
 
 - id: 'Create Container'
   name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '--tag=gcr.io/cicd-event-march25th-prod/frontend:$TAG_NAME', '.']
+  args: ['build', '--tag=gcr.io/cicd-event-march25th-prod/frontend:$TAG_NAME', 'src/frontend/']
 
 - id: 'Push Container to Production registry'
   name: 'gcr.io/cloud-builders/docker'
@@ -13,7 +13,7 @@ steps:
   args:
   - 'set'
   - 'image'
-  - 'deployment/frontend-production'
+  - 'deployment/frontend'
   - 'server=gcr.io/cicd-event-march25th-prod/frontend:$TAG_NAME'
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'

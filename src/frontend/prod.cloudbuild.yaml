@@ -20,4 +20,4 @@ steps:
   - 'CLOUDSDK_CONTAINER_CLUSTER=production-cluster-2'
   - 'CLOUDSDK_CORE_PROJECT=cicd-event-march25th-prod'
 #options:
-# machineType: 'N1_HIGHCPU_8'
+ machineType: 'N1_HIGHCPU_8'

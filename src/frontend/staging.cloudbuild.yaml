@@ -1,4 +1,7 @@
 steps:
+- id: "Install Go"
+  name: 'gcr.io/cloud-builders/go'
+  args: ['install', '.']
 
 - id: 'Create Container'
   name: 'gcr.io/cloud-builders/docker'

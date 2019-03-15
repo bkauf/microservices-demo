@@ -21,3 +21,4 @@ steps:
   - 'CLOUDSDK_CORE_PROJECT=cicd-march-25th'
 options:
  machineType: 'N1_HIGHCPU_8'
+ 

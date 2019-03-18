@@ -32,7 +32,7 @@ steps:
   args: ['cp', 'gs://$PROJECT_ID-github/id_rsa', 'src/id_rsa']
 
 - id: 'Push Git'
-  name: 'bkauf/cb-git:1.0'
+  name: 'bkauf/cb-git:1.1'
   args: ['sh', './src/githubssh.sh']
 
 #- id: 'Push Manifest'

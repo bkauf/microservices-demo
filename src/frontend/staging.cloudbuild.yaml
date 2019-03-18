@@ -35,7 +35,7 @@ steps:
 # Prepare for github c
 - id: 'Prepair Git Hub'
   name: 'gcr.io/cloud-builders/gcloud'
-  dir: src
+  dir: /workspace/src
   entrypoint: './githubssh.sh'
   volumes:
   - name: 'ssh-setup'

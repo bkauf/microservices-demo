@@ -31,17 +31,19 @@ steps:
   name: gcr.io/cloud-builders/gsutil
   args: ['cp', 'gs://$PROJECT_ID-github/id_rsa', 'src/id_rsa']
 
-
-
-- id: 'Push Manifest'
-  name: 'gcr.io/cloud-builders/git'
-  entrypoint: /bin/bash
+- id: 'Copy Git SSH Auth Key into Source Folder'
+  name: ubuntu
   args:
     - './src/githubssh.sh'
-    - '| '
-    - 'git'
-    - 'push'
-    - 'git@github.com:bkauf/microservices-demo'
-    - 'master'
+
+#- id: 'Push Manifest'
+#  name: 'gcr.io/cloud-builders/git'
+#  entrypoint: /bin/bash
+#  args:
+
+#    - 'git'
+#    - 'push'
+#    - 'git@github.com:bkauf/microservices-demo'
+#    - 'master'
 #options:
   #machineType: 'N1_HIGHCPU_8'

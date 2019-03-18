@@ -33,7 +33,7 @@ steps:
 
 - id: 'Push Git'
   name: 'bkauf/cb-git:1.0'
-  args: ['bash', './src/githubssh.sh']
+  args: ['sh', './src/githubssh.sh']
 
 #- id: 'Push Manifest'
 #  name: 'gcr.io/cloud-builders/git'

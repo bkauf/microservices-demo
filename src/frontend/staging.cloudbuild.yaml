@@ -28,7 +28,7 @@ steps:
      sed "s/(image:.*(frontend:.*))/image: gcr.io/$_IMAGE_REPO/frontend:$COMMIT_SHA/g" release/kubernetes-manifest.yaml
 
 - id: 'Push Manifest'
-- name: gcr.io/cloud-builders/git
+  name: 'gcr.io/cloud-builders/git'
   args: ['push', 'https://github.com/bkauf/microservices-demo', 'master']
 #options:
   #machineType: 'N1_HIGHCPU_8'

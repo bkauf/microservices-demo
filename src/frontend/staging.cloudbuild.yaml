@@ -31,9 +31,31 @@ steps:
   name: gcr.io/cloud-builders/gsutil
   args: ['cp', 'gs://$PROJECT_ID-github/id_rsa', 'src/id_rsa']
 
-- id: 'Push Git'
-  name: 'bkauf/cb-git:1.4'
-  args: ['cat src/id_rsa' ]
+
+# Prepare for github c
+- name: 'gcr.io/cloud-builders/gcloud'
+  dir: src
+  entrypoint: ./githubssh.sh
+  volumes:
+  - name: 'ssh-setup'
+    path: /root/.ssh
+
+- name: 'gcr.io/cloud-builders/git'
+  env:
+  - GIT_SSH=src/git-ssh.sh
+  args:
+  - push
+  - git@github.com:bkauf/microservices-demo
+  - master
+  volumes:
+  - name: 'ssh-setup'
+    path: /root/.ssh
+
+
+
+#- id: 'Push Git'
+#  name: 'bkauf/cb-git:1.4'
+#  args: ['cat src/id_rsa' ]
 #- id: 'Push Manifest'
 #  name: 'gcr.io/cloud-builders/git'
 #  entrypoint: /bin/bash

@@ -34,7 +34,6 @@ steps:
 - id: 'Push Git'
   name: 'bkauf/cb-git:1.4'
   args: ['./src/githubssh.sh']
-
 #- id: 'Push Manifest'
 #  name: 'gcr.io/cloud-builders/git'
 #  entrypoint: /bin/bash

@@ -1,5 +1,5 @@
 eval `ssh-agent`
-apt-get install git -y
+apt install git -y
 mkdir -p /root/.ssh
 ssh-keyscan github.com >> ~/.ssh/known_hosts
 mv /workspace/id_rsa  ~/.ssh/id_rsa

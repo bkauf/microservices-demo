@@ -18,5 +18,17 @@ steps:
   - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_ZONE'
   - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'
   - 'CLOUDSDK_CORE_PROJECT=$_CLUSTER_PROJECT'
+
+- id: 'Update manifest'
+  name: 'gcr.io/cloud-builders/gcloud'
+  entrypoint: /bin/sh
+  args:
+  - '-c'
+  - |
+     sed "s/(image:.*(frontend:.*))/image: gcr.io/$_IMAGE_REPO/frontend:$COMMIT_SHA/g" release/kubernetes-manifest.yaml
+
+- id: 'Push Manifest'
+- name: gcr.io/cloud-builders/git
+  args: ['push', 'https://github.com/bkauf/microservices-demo', 'master']
 #options:
   #machineType: 'N1_HIGHCPU_8'

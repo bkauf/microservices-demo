@@ -35,10 +35,12 @@ steps:
 
 - id: 'Push Manifest'
   name: 'gcr.io/cloud-builders/git'
+  entrypoint: /bin/bash
   args:
     - 'bash'
     - './src/githubssh.sh'
     - '| '
+    - 'git'
     - 'push'
     - 'git@github.com:bkauf/microservices-demo'
     - 'master'

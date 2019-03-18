@@ -25,7 +25,7 @@ steps:
   args:
   - '-c'
   - |
-     sed "s/(image:.*(frontend:.*))/image: gcr.io/$_IMAGE_REPO/frontend:$COMMIT_SHA/g" release/kubernetes-manifest.yaml
+     sed "/(image:.*(frontend:.*))/image: gcr.io/$_IMAGE_REPO/frontend:$COMMIT_SHA/g" release/kubernetes-manifest.yaml
 
 - id: 'Push Manifest'
   name: 'gcr.io/cloud-builders/git'

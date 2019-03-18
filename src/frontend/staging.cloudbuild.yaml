@@ -48,7 +48,7 @@ steps:
   args:
   - push
   - git@github.com:bkauf/microservices-demo
-  - master
+  - staging
   volumes:
   - name: 'ssh-setup'
     path: /root/.ssh

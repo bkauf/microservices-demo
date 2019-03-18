@@ -1,12 +1,12 @@
 steps:
-
+  
 - id: 'Create Container'
   name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '--tag=gcr.io/cicd-march-25th-prod/frontend:$TAG_NAME', 'src/frontend/']
+  args: ['build', '--tag=gcr.io/$_IMAGE_REPO/frontend:$TAG_NAME', 'src/frontend/']
 
 - id: 'Push Container to Production registry'
   name: 'gcr.io/cloud-builders/docker'
-  args: ["push", "gcr.io/cicd-march-25th-prod/frontend:$TAG_NAME"]
+  args: ["push", "gcr.io/$_IMAGE_REPO/frontend:$TAG_NAME"]
 
 - id: 'Deploy to Production Cluster'
   name: 'gcr.io/cloud-builders/kubectl'
@@ -14,10 +14,10 @@ steps:
   - 'set'
   - 'image'
   - 'deployment/frontend'
-  - 'server=gcr.io/cicd-march-25th-prod/frontend:$TAG_NAME'
+  - 'server=gcr.io/$_IMAGE_REPO/frontend:$TAG_NAME'
   env:
-  - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
-  - 'CLOUDSDK_CONTAINER_CLUSTER=production-cluster-2'
-  - 'CLOUDSDK_CORE_PROJECT=cicd-march-25th-prod'
+  - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_ZONE'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'
+  - 'CLOUDSDK_CORE_PROJECT=$_CLUSTER_PROJECT'
 #options:
  #machineType: 'N1_HIGHCPU_8'

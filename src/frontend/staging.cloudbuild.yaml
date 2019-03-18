@@ -36,11 +36,11 @@ steps:
 - id: 'Prepair Git Hub'
   name: 'gcr.io/cloud-builders/gcloud'
   dir: src
-  entrypoint: ./githubssh.sh
+  entrypoint: 'ls -l'
   volumes:
   - name: 'ssh-setup'
     path: /root/.ssh
-    
+
 - id: 'Push Git Hub'
   name: 'gcr.io/cloud-builders/git'
   env:

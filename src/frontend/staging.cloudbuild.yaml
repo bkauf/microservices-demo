@@ -27,13 +27,12 @@ steps:
   - |
      sed "/(image:.*(frontend:.*))/image: gcr.io/$_IMAGE_REPO/frontend:$COMMIT_SHA/g" release/kubernetes-manifests.yaml
 
-
 - id: 'Copy Git SSH Auth Key into Source Folder'
   name: gcr.io/cloud-builders/gsutil
   args: ['cp', 'gs://$PROJECT_ID-github/id_rsa', 'src/id_rsa']
 
 - id: 'Push Git'
-  name: 'ubuntu'
+  name: 'bkauf/cb-git:1.0'
   args: ['bash', './src/githubssh.sh']
 
 #- id: 'Push Manifest'

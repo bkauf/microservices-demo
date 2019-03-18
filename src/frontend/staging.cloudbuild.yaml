@@ -33,14 +33,16 @@ steps:
 
 
 # Prepare for github c
-- name: 'gcr.io/cloud-builders/gcloud'
+- id: 'Prepair Git Hub'
+  name: 'gcr.io/cloud-builders/gcloud'
   dir: src
   entrypoint: ./githubssh.sh
   volumes:
   - name: 'ssh-setup'
     path: /root/.ssh
-
-- name: 'gcr.io/cloud-builders/git'
+    
+- id: 'Push Git Hub'
+  name: 'gcr.io/cloud-builders/git'
   env:
   - GIT_SSH=src/git-ssh.sh
   args:

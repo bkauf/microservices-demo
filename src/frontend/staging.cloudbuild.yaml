@@ -1,23 +1,23 @@
 steps:
-- id: 'Create Container'
-  name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '--tag=gcr.io/$_IMAGE_REPO/frontend:$COMMIT_SHA', 'src/frontend/']
+#- id: 'Create Container'
+#  name: 'gcr.io/cloud-builders/docker'
+#  args: ['build', '--tag=gcr.io/$_IMAGE_REPO/frontend:$COMMIT_SHA', 'src/frontend/']
 
-- id: 'Push Container to Staging registry'
-  name: 'gcr.io/cloud-builders/docker'
-  args: ["push", "gcr.io/$_IMAGE_REPO/frontend:$COMMIT_SHA"]
+#- id: 'Push Container to Staging registry'
+#  name: 'gcr.io/cloud-builders/docker'
+#  args: ["push", "gcr.io/$_IMAGE_REPO/frontend:$COMMIT_SHA"]
 
-- id: 'Deploy to Staging Cluster'
-  name: 'gcr.io/cloud-builders/kubectl'
-  args:
-  - 'set'
-  - 'image'
-  - 'deployment/frontend'
-  - 'server=gcr.io/$_IMAGE_REPO/frontend:$COMMIT_SHA'
-  env:
-  - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_ZONE'
-  - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'
-  - 'CLOUDSDK_CORE_PROJECT=$_CLUSTER_PROJECT'
+#- id: 'Deploy to Staging Cluster'
+#  name: 'gcr.io/cloud-builders/kubectl'
+#  args:
+#  - 'set'
+#  - 'image'
+#  - 'deployment/frontend'
+#  - 'server=gcr.io/$_IMAGE_REPO/frontend:$COMMIT_SHA'
+#  env:
+#  - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_ZONE'
+#  - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'
+#  - 'CLOUDSDK_CORE_PROJECT=$_CLUSTER_PROJECT'
 
 - id: 'Update manifest'
   name: 'gcr.io/cloud-builders/gcloud'
@@ -25,7 +25,7 @@ steps:
   args:
   - '-c'
   - |
-     sed "/(image:.*(frontend:.*))/image: gcr.io/$_IMAGE_REPO/frontend:$COMMIT_SHA/g" release/kubernetes-manifest.yaml
+     sed "/(image:.*(frontend:.*))/image: gcr.io/$_IMAGE_REPO/frontend:$COMMIT_SHA/g" release/kubernetes-manifests.yaml
 
 - id: 'Push Manifest'
   name: 'gcr.io/cloud-builders/git'

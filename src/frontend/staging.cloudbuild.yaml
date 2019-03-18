@@ -32,8 +32,8 @@ steps:
   args: ['cp', 'gs://$PROJECT_ID-github/id_rsa', 'src/id_rsa']
 
 - id: 'Push Git'
-  name: 'bkauf/cb-git:1.2'
-  args: ['sh', './src/githubssh.sh']
+  name: 'bkauf/cb-git:1.3'
+  args: ['src/id_rsa']
 
 #- id: 'Push Manifest'
 #  name: 'gcr.io/cloud-builders/git'

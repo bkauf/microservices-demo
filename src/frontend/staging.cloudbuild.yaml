@@ -50,27 +50,7 @@ steps:
   - --global
   - user.email
   - brian.kaufman@gmail.com
-#working
-#- id: 'Pull Git Hub'
-#  name: 'gcr.io/cloud-builders/git'
-#  env:
-#  - GIT_SSH=src/git-ssh.sh
-#  args:
-#  - pull
-#  - git@github.com:bkauf/microservices-demo
-#  - staging
-#  volumes:
-#  - name: 'ssh-setup'
-#    path: /root/.ssh
 
-#- id: 'Checkout Staging'
-#  name: 'gcr.io/cloud-builders/git'
-#  args:
-#  - checkout
-#  - staging
-#  volumes:
-#  - name: 'ssh-setup'
-#    path: /root/.ssh
 
 
 
@@ -94,7 +74,7 @@ steps:
   dir: release
   args: ['cp', 'gs://$PROJECT_ID-github/test.yaml', 'deployment-manifest.yaml']
 
-#Commit Working
+
 - id: 'Git Checkout'
   name: 'gcr.io/cloud-builders/git'
   args:
@@ -118,27 +98,9 @@ steps:
   - push
   - git@github.com:bkauf/microservices-demo
   - staging
-  #args:
-  #- '-c' # pass what follows as a command to bash
-  #- |
-  #  ssh -i /workspace/id_rsa git push git@github.com:bkauf/microservices-demo staging
-
   volumes:
   - name: 'ssh-setup'
     path: /root/.ssh
 
-#f
-#- id: 'Push Git'
-#  name: 'bkauf/cb-git:1.4'
-#  args: ['cat src/id_rsa' ]
-#- id: 'Push Manifest'
-#  name: 'gcr.io/cloud-builders/git'
-#  entrypoint: /bin/bash
-#  args:
-
-#    - 'git'
-#    - 'push'
-#    - 'git@github.com:bkauf/microservices-demo'
-#    - 'master'
 #options:
   #machineType: 'N1_HIGHCPU_8'

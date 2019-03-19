@@ -65,7 +65,7 @@ steps:
 - id: 'Get Updated Manifest'
   name: 'gcr.io/cloud-builders/kubectl'
   dir: /workspace/release
-  entrypoint: 'bash'
+  entrypoint: 'sh'
   args:
   - 'kubectl get deployment -o yaml > deployment-manifest.yaml'
 

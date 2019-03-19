@@ -55,9 +55,8 @@ steps:
 
 - id: 'Git Commit'
   name: 'gcr.io/cloud-builders/git'
-  entrypoint: 'bash'
-  args:
-    - git config --global user.name "Cloud Build" | git config --global user.email "brian.kaufman@gmail.com" | git commit -am "changes"
+#  entrypoint: 'bash'
+  args: ['commit', ''-am', '"changes"']
 
 - id: 'Push Git Hubb'
   name: 'gcr.io/cloud-builders/git'

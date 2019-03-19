@@ -59,11 +59,14 @@ steps:
   volumes:
   - name: 'ssh-setup'
     path: /root/.ssh
+
 - id: 'Git Commit'
   name: 'gcr.io/cloud-builders/git'
   entrypoint: 'bash'
   args:
-    - git config --global user.name "Cloud Build" | git config --global user.email "brian.kaufman@gmail.com" | git commit -am "changes"
+    - git config --global user.name "Cloud Build" | \
+     git config --global user.email "brian.kaufman@gmail.com" | \
+     git commit -am "changes"
 
 
 #- id: 'Push Git'

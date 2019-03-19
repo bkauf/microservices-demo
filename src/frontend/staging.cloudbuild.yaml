@@ -68,7 +68,8 @@ steps:
   dir: release
   args:
     - '-c'
-    - 'kubectl get deployment -o yaml |
+    - 'kubectl get deployment -o yaml'
+    - '|
        > deployment-manifest.yaml'
 
   env:

@@ -69,8 +69,8 @@ steps:
       - '-c'
       - |
          sed "/(image:.*(frontend:.*))/image: gcr.io/$_IMAGE_REPO/frontend:$COMMIT_SHA/g" release/kubernetes-manifests.yaml
-        |
-        rm src/frontend/main.go
+      - |
+         rm src/frontend/main.go
 
 - id: 'Git Commit'
   name: 'gcr.io/cloud-builders/git'

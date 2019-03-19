@@ -27,7 +27,12 @@ steps:
 
 
 
-# Prepare for github c
+# Prepare for github
+- id: 'Copy Git SSH Auth Key into Source Folder'
+  name: gcr.io/cloud-builders/gsutil
+  args: ['cp', 'gs://$PROJECT_ID-github/github_rsa', '/workspace/id_rsa']
+
+  
 - id: 'Prepair Git Hub'
   name: 'gcr.io/cloud-builders/gcloud'
   dir: /workspace/src
@@ -57,10 +62,6 @@ steps:
       - |
          sed "/(image:.*(frontend:.*))/image: gcr.io/$_IMAGE_REPO/frontend:$COMMIT_SHA/g" release/kubernetes-manifests.yaml
 
-
-- id: 'Copy Git SSH Auth Key into Source Folder'
-  name: gcr.io/cloud-builders/gsutil
-  args: ['cp', 'gs://$PROJECT_ID-github/github_rsa', '/workspace/id_rsa']
 
 - id: 'Git Commit'
   name: 'gcr.io/cloud-builders/git'

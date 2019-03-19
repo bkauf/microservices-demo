@@ -69,7 +69,7 @@ steps:
   #args: ['kubectl get deployment -o yaml']
   #,'> deployment-manifest.yaml']
   #args: ['../src/frontend/buildcmd.sh']
-  args: ['-c' 'kubectl get deployment -o yaml > deployment-manifest.yaml']
+  args: ['-c', 'kubectl get deployment -o yaml > deployment-manifest.yaml']
 
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_ZONE'

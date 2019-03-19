@@ -53,11 +53,11 @@ steps:
   - name: 'ssh-setup'
     path: /root/.ssh
 
-#- id: 'Git Commit'
-#  name: 'gcr.io/cloud-builders/git'
-#  entrypoint: 'bash'
-#  args:
-#    - git config --global user.name "Cloud Build" | git config --global user.email "brian.kaufman@gmail.com" | git commit -am "changes"
+- id: 'Git Commit'
+  name: 'gcr.io/cloud-builders/git'
+  entrypoint: 'bash'
+  args:
+    - git config --global user.name "Cloud Build" | git config --global user.email "brian.kaufman@gmail.com" | git commit -am "changes"
 
 - id: 'Push Git Hubb'
   name: 'gcr.io/cloud-builders/git'
@@ -66,6 +66,7 @@ steps:
   args:
   - push
   - git@github.com:bkauf/microservices-demo
+  - staging
   volumes:
   - name: 'ssh-setup'
     path: /root/.ssh

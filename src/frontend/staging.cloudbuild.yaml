@@ -22,7 +22,7 @@ steps:
 
 
 - id: 'Git Clone'
-  #name: 'gcr.io/cloud-builders/git'
+  name: 'gcr.io/cloud-builders/git'
   #args: ['clone', '-b', 'staging', 'https://github.com/bkauf/microservices-demo.git']
   args: ['checkout','-B','staging']
 

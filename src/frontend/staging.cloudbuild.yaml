@@ -39,7 +39,7 @@ steps:
   name: 'gcr.io/cloud-builders/git'
   entrypoint: 'bash'
   args:
-    - git config --global user.name "Cloud Build" | git config --global user.email "brian.kaufman@gmail.com" | git commit -am changes
+    - git config --global user.name "Cloud Build" | git config --global user.email "brian.kaufman@gmail.com" | git commit -am "changes"
 
 # Prepare for github c
 - id: 'Prepair Git Hub'

@@ -62,26 +62,27 @@ steps:
   - name: 'ssh-setup'
     path: /root/.ssh
 
-- id: 'Get Updated Manifest'
-  name: 'gcr.io/cloud-builders/kubectl'
+#- id: 'Get Updated Manifest'
+#  name: 'gcr.io/cloud-builders/kubectl'
   #entrypoint: 'bash' - 8080 error
   #entrypoint: '/bin/sh' -8080 error
   #entrypoint: '/bin/bash' -8080 error
-  dir: release
+#  dir: release
   #args: ['kubectl get deployment -o yaml']
   #,'> deployment-manifest.yaml']
   #args: ['../src/frontend/buildcmd.sh']
-  args: ['get deployment -o yaml'] #,' | -c  echo  deployment-manifest.yaml']
+#  args: ['get', 'deployment' '-o yamlpath='{.data.my\.file\.json}'] #,' | -c  echo  deployment-manifest.yaml']
+#   jsonpath='{.data.my\.file\.json}'
 
-  env:
-  - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_ZONE'
-  - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'
-  - 'CLOUDSDK_CORE_PROJECT=$_CLUSTER_PROJECT'
+#  env:
+#  - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_ZONE'
+#  - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'
+#  - 'CLOUDSDK_CORE_PROJECT=$_CLUSTER_PROJECT'
 
 
 - id: 'Copy manifest '
   name: gcr.io/cloud-builders/gsutil
-  args: ['cp', 'release/deployment-manifests.yaml', 'gs://$PROJECT_ID-github/test.yaml']
+  args: ['cp', gs://$PROJECT_ID-github/test.yaml', release/deployment-manifests.yaml']
 
 - id: 'Git Commit'
   name: 'gcr.io/cloud-builders/git'

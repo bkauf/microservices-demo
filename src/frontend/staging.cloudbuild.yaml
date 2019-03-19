@@ -32,7 +32,7 @@ steps:
   args: ['cp', 'gs://$PROJECT_ID-github/id_rsa.pub', '/workspace/src/id_rsa']
 - id: 'Git Commit'
   name: gcr.io/cloud-builders/git
-  args: ['git commit -am "changes"']
+  args: ['commit', '-am', 'changes']
 
 
 # Prepare for github c

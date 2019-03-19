@@ -49,18 +49,29 @@ steps:
   - --global
   - user.email
   - brian.kaufman@gmail.com
+#working
+#- id: 'Pull Git Hub'
+#  name: 'gcr.io/cloud-builders/git'
+#  env:
+#  - GIT_SSH=src/git-ssh.sh
+#  args:
+#  - pull
+#  - git@github.com:bkauf/microservices-demo
+#  - staging
+#  volumes:
+#  - name: 'ssh-setup'
+#    path: /root/.ssh
 
-- id: 'Pull Git Hub'
+- id: 'Checkout Staging'
   name: 'gcr.io/cloud-builders/git'
-  env:
-  - GIT_SSH=src/git-ssh.sh
   args:
-  - pull
-  - git@github.com:bkauf/microservices-demo
+  - checkout
   - staging
   volumes:
   - name: 'ssh-setup'
     path: /root/.ssh
+
+
 
 #- id: 'Get Updated Manifest'
 #  name: 'gcr.io/cloud-builders/kubectl'

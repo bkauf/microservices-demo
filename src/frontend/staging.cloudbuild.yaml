@@ -66,9 +66,7 @@ steps:
   name: 'gcr.io/cloud-builders/gcloud'
   entrypoint: /bin/sh
   args:
-      - '-c'
-      - |
-         sed 's/frontend:\v.*/frontend:$COMMIT_SHA/g' release/kubernetes-manifests.yaml
+      - sed 's/frontend:\v.*/frontend:$COMMIT_SHA/g' release/kubernetes-manifests.yaml
 
 
 

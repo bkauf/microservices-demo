@@ -38,12 +38,6 @@ steps:
   name: gcr.io/cloud-builders/gsutil
   args: ['cp', 'gs://$PROJECT_ID-github/github_rsa', '/workspace/id_rsa']
 
-#- id: 'Git Commit'
-#  name: 'gcr.io/cloud-builders/git'
-#  entrypoint: 'bash'
-#  args:
-#    - git config --global user.name "Cloud Build" | git config --global user.email "brian.kaufman@gmail.com" | git commit -am "changes"
-
 # Prepare for github c
 - id: 'Prepair Git Hub'
   name: 'gcr.io/cloud-builders/gcloud'
@@ -53,22 +47,24 @@ steps:
   - name: 'ssh-setup'
     path: /root/.ssh
 
-- id: 'Git Commit'
-  name: 'gcr.io/cloud-builders/git'
-#  entrypoint: 'bash'
-  args: ['commit', '-am', '"changes"']
 
-- id: 'Push Git Hubb'
+- id: 'Pull Git Hub'
   name: 'gcr.io/cloud-builders/git'
   env:
   - GIT_SSH=src/git-ssh.sh
   args:
-  - push
+  - pull
   - git@github.com:bkauf/microservices-demo
   - staging
   volumes:
   - name: 'ssh-setup'
     path: /root/.ssh
+
+- id: 'Git Commit'
+  name: 'gcr.io/cloud-builders/git'
+  entrypoint: 'bash'
+  args:
+    - git config --global user.name "Cloud Build" | git config --global user.email "brian.kaufman@gmail.com" | git commit -am "changes"
 
 
 #- id: 'Push Git'

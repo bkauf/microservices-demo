@@ -64,7 +64,7 @@ steps:
   env:
   - GIT_SSH=src/git-ssh.sh
   args:
-  - clone
+  - push
   - git@github.com:bkauf/microservices-demo
   volumes:
   - name: 'ssh-setup'

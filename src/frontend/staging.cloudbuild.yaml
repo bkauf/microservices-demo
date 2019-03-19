@@ -66,12 +66,12 @@ steps:
   name: 'gcr.io/cloud-builders/kubectl'
   #entrypoint: 'bash' - 8080 error
   #entrypoint: '/bin/sh' -8080 error
-  entrypoint: '/bin/bash'
+  #entrypoint: '/bin/bash' -8080 error
   dir: release
   #args: ['kubectl get deployment -o yaml']
   #,'> deployment-manifest.yaml']
   #args: ['../src/frontend/buildcmd.sh']
-  args: ['-c', 'kubectl get deployment -o yaml > deployment-manifest.yaml']
+  args: ['kubectl get deployment -o yaml',' | -c  echo  deployment-manifest.yaml']
 
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_ZONE'

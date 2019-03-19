@@ -1,3 +1,3 @@
 #!/bin/bash
 
-ssh -i /workspace/src/id_rsa $1 $2
+ssh -i /root/.ssh/id_rsa $1 $2

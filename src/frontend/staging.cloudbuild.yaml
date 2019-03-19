@@ -18,9 +18,12 @@ steps:
 #  - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_ZONE'
 #  - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'
 #  - 'CLOUDSDK_CORE_PROJECT=$_CLUSTER_PROJECT'
-- id: 'Git Clone'
-  name: 'gcr.io/cloud-builders/git'
-  args: ['clone', '-b', 'staging', 'https://github.com/bkauf/microservices-demo.git']
+
+
+
+#- id: 'Git Clone'
+#  name: 'gcr.io/cloud-builders/git'
+#  args: ['clone', '-b', 'staging', 'https://github.com/bkauf/microservices-demo.git']
 
 
 - id: 'Update manifest'
@@ -33,13 +36,13 @@ steps:
 
 - id: 'Copy Git SSH Auth Key into Source Folder'
   name: gcr.io/cloud-builders/gsutil
-  args: ['cp', 'gs://$PROJECT_ID-github/id_rsa.pub', '/workspace/src/id_rsa']
+  args: ['cp', 'gs://$PROJECT_ID-github/id_rsa.pub', '/root/.ssh/id_rsa']
 
-- id: 'Git Commit'
-  name: 'gcr.io/cloud-builders/git'
-  entrypoint: 'bash'
-  args:
-    - git config --global user.name "Cloud Build" | git config --global user.email "brian.kaufman@gmail.com" | git commit -am "changes"
+#- id: 'Git Commit'
+#  name: 'gcr.io/cloud-builders/git'
+#  entrypoint: 'bash'
+#  args:
+#    - git config --global user.name "Cloud Build" | git config --global user.email "brian.kaufman@gmail.com" | git commit -am "changes"
 
 # Prepare for github c
 - id: 'Prepair Git Hub'
@@ -49,6 +52,16 @@ steps:
   volumes:
   - name: 'ssh-setup'
     path: /root/.ssh
+
+- id: 'Git Commit'
+  name: 'gcr.io/cloud-builders/git'
+  entrypoint: 'bash'
+  args:
+    - git config --global user.name "Cloud Build" | git config --global user.email "brian.kaufman@gmail.com" | git commit -am "changes"
+
+
+
+
 - id: 'Push Git Hub'
   name: 'gcr.io/cloud-builders/git'
   env:

@@ -41,6 +41,15 @@ steps:
   - name: 'ssh-setup'
     path: /root/.ssh
 
+- id: 'Git Config'
+  name: 'gcr.io/cloud-builders/git'
+      #entrypoint: 'bash'
+  args:
+  - config
+  - --global
+  - user.email
+  - brian.kaufman@gmail.com
+
 - id: 'Pull Git Hub'
   name: 'gcr.io/cloud-builders/git'
   env:
@@ -53,6 +62,12 @@ steps:
   - name: 'ssh-setup'
     path: /root/.ssh
 
+- id: 'Git Test'
+  name: 'gcr.io/cloud-builders/git'
+  entrypoint: 'bash'
+  args:
+  - git checkout staging
+
 
 - id: 'Update manifest'
   name: 'gcr.io/cloud-builders/gcloud'
@@ -62,19 +77,9 @@ steps:
       - |
          sed "/(image:.*(frontend:.*))/image: gcr.io/$_IMAGE_REPO/frontend:$COMMIT_SHA/g" release/kubernetes-manifests.yaml
 
-
-- id: 'Git Config'
-  name: 'gcr.io/cloud-builders/git'
-  #entrypoint: 'bash'
-  args:
-    - config
-    - --global
-    - user.email
-    - brian.kaufman@gmail.com
-
 - id: 'Git Commit'
   name: 'gcr.io/cloud-builders/git'
-      #entrypoint: 'bash'
+  #entrypoint: 'bash'
   args:
   - commit
   - -am

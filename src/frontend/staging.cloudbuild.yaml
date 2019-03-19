@@ -23,7 +23,8 @@ steps:
 
 - id: 'Git Clone'
   name: 'gcr.io/cloud-builders/git'
-  args: ['clone', '-b', 'staging', 'https://github.com/bkauf/microservices-demo.git']
+  #args: ['clone', '-b', 'staging', 'https://github.com/bkauf/microservices-demo.git']
+  args: ['checkout',  'staging']
 
 
 
@@ -73,22 +74,26 @@ steps:
 
 
 
-#- id: 'Get Updated Manifest'
-#  name: 'gcr.io/cloud-builders/kubectl'
-  #entrypoint: 'bash' - 8080 error
+- id: 'Get Updated Manifest'
+  name: 'gcr.io/cloud-builders/kubectl'
+  entrypoint: 'bash' # - 8080 error
   #entrypoint: '/bin/sh' -8080 error
   #entrypoint: '/bin/bash' -8080 error
-#  dir: release
+  dir: release
   #args: ['kubectl get deployment -o yaml']
   #,'> deployment-manifest.yaml']
   #args: ['../src/frontend/buildcmd.sh']
 #  args: ['get', 'deployment' '-o yamlpath='{.data.my\.file\.json}'] #,' | -c  echo  deployment-manifest.yaml']
 #   jsonpath='{.data.my\.file\.json}'
+  args:
+  - '-c' # pass what follows as a command to bash
+  - |
+    kubectl get deployment -0 yaml >deployment-manifest.yaml
 
-#  env:
-#  - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_ZONE'
-#  - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'
-#  - 'CLOUDSDK_CORE_PROJECT=$_CLUSTER_PROJECT'
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_ZONE'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'
+  - 'CLOUDSDK_CORE_PROJECT=$_CLUSTER_PROJECT'
 
 
 - id: 'Copy manifest '

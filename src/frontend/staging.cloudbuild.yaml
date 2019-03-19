@@ -62,9 +62,9 @@ steps:
 
 - id: 'Git Commit'
   name: 'gcr.io/cloud-builders/git'
-  entrypoint: 'bash'
+  #entrypoint: 'bash'
   args:
-    - git config --global user.email "brian.kaufman@gmail.com"
+    - config --global user.email "brian.kaufman@gmail.com"
 
 
 #- id: 'Push Git'

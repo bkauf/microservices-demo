@@ -62,12 +62,6 @@ steps:
   - name: 'ssh-setup'
     path: /root/.ssh
 
-- id: 'Git Test'
-  name: 'gcr.io/cloud-builders/git'
-  #entrypoint: 'bash'
-  args: ['checkout', 'staging']
-
-
 - id: 'Update manifest'
   name: 'gcr.io/cloud-builders/gcloud'
   entrypoint: /bin/sh

@@ -64,9 +64,12 @@ steps:
 
 - id: 'Update manifest'
   name: 'gcr.io/cloud-builders/gcloud'
-  entrypoint: bash
+  entrypoint: /bin/sh
   args:
-      - sed 's/frontend:v/frontend:$COMMIT_SHA/g' release/kubernetes-manifests.yaml
+      - '-c'
+      - |
+         sed 's/frontend:v/frontend:$COMMIT_SHA/g' release/kubernetes-manifests.yaml
+    
 
 
 - id: 'Copy manifest '

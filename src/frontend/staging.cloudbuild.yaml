@@ -68,7 +68,8 @@ steps:
   args:
   - 'get'
   - 'deployment'
-  - '-o yaml > deployment-manifest.yaml'
+  - '-o'
+  - ' yaml > deployment-manifest.yaml'
 
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_ZONE'

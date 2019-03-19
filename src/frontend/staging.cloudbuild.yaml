@@ -65,7 +65,7 @@ steps:
 - id: 'Get Updated Manifest'
   name: 'gcr.io/cloud-builders/kubectl'
   #entrypoint: 'bash' - 8080
-  entrypoint:'/bin/sh'
+  entrypoint: 'bin/sh'
   dir: release
   #args: ['kubectl get deployment -o yaml']
   #,'> deployment-manifest.yaml']

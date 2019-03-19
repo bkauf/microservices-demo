@@ -60,8 +60,6 @@ steps:
     - git config --global user.name "Cloud Build" | git config --global user.email "brian.kaufman@gmail.com" | git commit -am "changes"
 
 
-
-
 - id: 'Push Git Hub'
   name: 'gcr.io/cloud-builders/git'
   env:

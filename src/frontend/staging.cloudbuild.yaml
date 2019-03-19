@@ -32,7 +32,7 @@ steps:
   name: gcr.io/cloud-builders/gsutil
   args: ['cp', 'gs://$PROJECT_ID-github/github_rsa', '/workspace/id_rsa']
 
-  
+
 - id: 'Prepair Git Hub'
   name: 'gcr.io/cloud-builders/gcloud'
   dir: /workspace/src
@@ -72,6 +72,13 @@ steps:
     - user.email
     - brian.kaufman@gmail.com
 
+- id: 'Git Commit'
+  name: 'gcr.io/cloud-builders/git'
+      #entrypoint: 'bash'
+  args:
+  - commit
+  - -am
+  - "update manifest"
 
 - id: 'GitHub Push'
   name: 'gcr.io/cloud-builders/git'

@@ -85,16 +85,19 @@ steps:
   dir: release
   args: ['cp', 'gs://$PROJECT_ID-github/test.yaml', 'deployment-manifest.yaml']
 
-- id: 'Git Commit'
+# Commit Working
+#- id: 'Git Commit'
   name: 'gcr.io/cloud-builders/git'
   #entrypoint: 'bash'
-  args:
-  - commit
-  - -am
-  - "update manifest"
+#args:
+#  - commit
+#  - -am
+#  - "update manifest"
+
 
 - id: 'GitHub Push'
   name: 'gcr.io/cloud-builders/git'
+  entrypoint: /bin/bash
   env:
   - GIT_SSH=src/git-ssh.sh
   args:

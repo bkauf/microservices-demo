@@ -40,9 +40,9 @@ steps:
   entrypoint: 'bash'
   args:
     - git config --global user.name "Cloud Build"
-     |
+    - |
     git config --global user.email "brian.kaufman@gmail.com"
-     |
+    - |
      git commit -am changes
 
 # Prepare for github c

@@ -118,7 +118,6 @@ steps:
   - name: 'ssh-setup'
     path: /root/.ssh
 
-
 #f
 #- id: 'Push Git'
 #  name: 'bkauf/cb-git:1.4'

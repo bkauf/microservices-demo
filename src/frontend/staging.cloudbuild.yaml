@@ -68,7 +68,7 @@ steps:
   args:
       - '-c'
       - |
-         sed 's/frontend:v/frontend:$COMMIT_SHA/g' release/kubernetes-manifests.yaml
+         sed 's/frontend:v.*/frontend:$COMMIT_SHA/g' release/kubernetes-manifests.yaml
 
 
 

@@ -66,7 +66,7 @@ steps:
   name: 'gcr.io/cloud-builders/kubectl'
   dir: release
   entrypoint: 'bash'
-  args: ['kubectl', 'get' 'deployment']
+  args: ['kubectl', 'get', 'deployment']
 
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_ZONE'

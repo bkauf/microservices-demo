@@ -47,7 +47,6 @@ steps:
   - name: 'ssh-setup'
     path: /root/.ssh
 
-
 - id: 'Pull Git Hub'
   name: 'gcr.io/cloud-builders/git'
   env:

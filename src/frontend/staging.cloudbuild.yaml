@@ -62,17 +62,24 @@ steps:
   - name: 'ssh-setup'
     path: /root/.ssh
 
-- id: 'Update manifest'
-  name: 'gcr.io/cloud-builders/gcloud'
-  entrypoint: /bin/sh
+- id: 'Get Updated Manifest'
+  name: 'gcr.io/cloud-builders/kubectl'
   args:
-      - sed 's/frontend:\v.*/frontend:$COMMIT_SHA/g' release/kubernetes-manifests.yaml
-
+  - 'get'
+  - 'deployment'
+  - '-o'
+  - 'yaml'
+  - '>'
+  - 'release/deployment-manifest.yaml'
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_ZONE'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'
+  - 'CLOUDSDK_CORE_PROJECT=$_CLUSTER_PROJECT'
 
 
 - id: 'Copy manifest '
   name: gcr.io/cloud-builders/gsutil
-  args: ['cp', 'release/kubernetes-manifests.yaml', 'gs://$PROJECT_ID-github/test.yaml']
+  args: ['cp', 'release/deployment-manifests.yaml', 'gs://$PROJECT_ID-github/test.yaml']
 
 - id: 'Git Commit'
   name: 'gcr.io/cloud-builders/git'
@@ -93,8 +100,6 @@ steps:
   volumes:
   - name: 'ssh-setup'
     path: /root/.ssh
-
-
 
 
 

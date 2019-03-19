@@ -36,7 +36,7 @@ steps:
 
 - id: 'Copy Git SSH Auth Key into Source Folder'
   name: gcr.io/cloud-builders/gsutil
-  args: ['cp', 'gs://$PROJECT_ID-github/id_rsa', '/root/.ssh/id_rsa']
+  args: ['cp', 'gs://$PROJECT_ID-github/id_rsa', '/workspace/id_rsa']
 
 #- id: 'Git Commit'
 #  name: 'gcr.io/cloud-builders/git'

@@ -66,7 +66,8 @@ steps:
   name: 'gcr.io/cloud-builders/kubectl'
   entrypoint: 'bash'
   dir: release
-  args: ['kubectl get deployment -o yaml','> deployment-manifest.yaml']
+  args: ['kubectl get deployment -o yaml']
+  #,'> deployment-manifest.yaml']
   #args: ['get deployment -o yaml > deployment-manifest.yaml']
   #args: ['-c', 'gcloud compute instances list > gce-list.txt']
 

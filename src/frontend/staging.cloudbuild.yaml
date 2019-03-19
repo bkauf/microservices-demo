@@ -63,7 +63,7 @@ steps:
          sed "/(image:.*(frontend:.*))/image: gcr.io/$_IMAGE_REPO/frontend:$COMMIT_SHA/g" release/kubernetes-manifests.yaml
 
 
-- id: 'Git Commit'
+- id: 'Git Config'
   name: 'gcr.io/cloud-builders/git'
   #entrypoint: 'bash'
   args:

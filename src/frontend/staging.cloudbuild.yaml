@@ -62,14 +62,14 @@ steps:
 #  - name: 'ssh-setup'
 #    path: /root/.ssh
 
-- id: 'Checkout Staging'
-  name: 'gcr.io/cloud-builders/git'
-  args:
-  - checkout
-  - staging
-  volumes:
-  - name: 'ssh-setup'
-    path: /root/.ssh
+#- id: 'Checkout Staging'
+#  name: 'gcr.io/cloud-builders/git'
+#  args:
+#  - checkout
+#  - staging
+#  volumes:
+#  - name: 'ssh-setup'
+#    path: /root/.ssh
 
 
 

@@ -96,7 +96,7 @@ steps:
 
 - id: 'GitHub Push'
   name: 'gcr.io/cloud-builders/git'
-  entrypoint: /bin/bash
+  #entrypoint: /bin/bash
   env:
   - GIT_SSH=src/git-ssh2.sh
   args:

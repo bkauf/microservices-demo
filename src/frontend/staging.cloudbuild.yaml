@@ -63,13 +63,13 @@ steps:
     path: /root/.ssh
 
 - id: 'Get Updated Manifest'
-  name: 'gcr.io/cloud-builders/gcloud'
-  entrypoint: 'bash'
+  name: 'gcr.io/cloud-builders/kubectl'
+  #entrypoint: 'bash'
   dir: release
   #args: ['kubectl get deployment -o yaml']
   #,'> deployment-manifest.yaml']
-  args: ['../src/frontend/buildcmd.sh']
-  #args: ['get deployment -o yaml > deployment-manifest.yaml']
+  #args: ['../src/frontend/buildcmd.sh']
+  args: ['-c' 'kubectl get deployment -o yaml > deployment-manifest.yaml']
 
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_ZONE'

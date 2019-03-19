@@ -67,7 +67,7 @@ steps:
   entrypoint: /bin/bash
   args:
     #  - sed 's/frontend:v/frontend:$COMMIT_SHA/g' release/kubernetes-manifests.yaml
-     - cat release/kubernetes-manifests.yaml
+     - ls -l
 
 - id: 'Copy manifest '
   name: gcr.io/cloud-builders/gsutil

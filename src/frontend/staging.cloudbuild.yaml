@@ -56,7 +56,7 @@ steps:
 - id: 'Git Commit'
   name: 'gcr.io/cloud-builders/git'
 #  entrypoint: 'bash'
-  args: ['commit', ''-am', '"changes"']
+  args: ['commit', '-am', '"changes"']
 
 - id: 'Push Git Hubb'
   name: 'gcr.io/cloud-builders/git'

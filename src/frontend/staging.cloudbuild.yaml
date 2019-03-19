@@ -20,7 +20,7 @@ steps:
 #  - 'CLOUDSDK_CORE_PROJECT=$_CLUSTER_PROJECT'
 - id: 'Git Clone'
   name: gcr.io/cloud-builders/git
-  args: ['clone', '-b', 'staging' 'https://github.com/bkauf/microservices-demo.git']
+  args: ['clone', '-b', 'staging', 'https://github.com/bkauf/microservices-demo.git']
 
 
 - id: 'Update manifest'

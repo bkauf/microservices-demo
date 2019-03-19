@@ -34,7 +34,7 @@ steps:
   args: ['cp', 'gs://$PROJECT_ID-github/github_rsa', '/workspace/id_rsa']
 
 
-- id: 'Prepair Git Hub'
+- id: 'Prepare Git Hub'
   name: 'gcr.io/cloud-builders/gcloud'
   dir: /workspace/src
   entrypoint: './githubssh.sh'
@@ -74,25 +74,19 @@ steps:
 
 
 
-- id: 'Get Updated Manifest'
-  name: 'gcr.io/cloud-builders/kubectl'
-  entrypoint: 'bash' # - 8080 error
-  #entrypoint: '/bin/sh' -8080 error
-  #entrypoint: '/bin/bash' -8080 error
-  dir: release
-  #args: ['kubectl get deployment -o yaml']
-  #,'> deployment-manifest.yaml']
-  #args: ['../src/frontend/buildcmd.sh']
-#  args: ['get', 'deployment' '-o yamlpath='{.data.my\.file\.json}'] #,' | -c  echo  deployment-manifest.yaml']
-#   jsonpath='{.data.my\.file\.json}'
-  args:
-  - '-c' # pass what follows as a command to bash
-  - |
-    kubectl get deployment -o yaml > deployment-manifest.yaml
-  env:
-  - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_ZONE'
-  - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'
-  - 'CLOUDSDK_CORE_PROJECT=$_CLUSTER_PROJECT'
+#- id: 'Get Updated Manifest'
+#  name: 'gcr.io/cloud-builders/kubectl'
+#  entrypoint: 'bash' # - 8080 error
+#  dir: release
+
+#  args:
+#  - '-c' # pass what follows as a command to bash
+#  - |
+#    kubectl get deployment -o yaml > deployment-manifest.yaml
+#  env:
+#  - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_ZONE'
+#  - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'
+#  - 'CLOUDSDK_CORE_PROJECT=$_CLUSTER_PROJECT'
 
 
 - id: 'Copy manifest '
@@ -101,6 +95,13 @@ steps:
   args: ['cp', 'gs://$PROJECT_ID-github/test.yaml', 'deployment-manifest.yaml']
 
 #Commit Working
+- id: 'Git Checkout'
+  name: 'gcr.io/cloud-builders/git'
+  args:
+  - checkout
+  - -B
+  - "staging"
+
 - id: 'Git Commit'
   name: 'gcr.io/cloud-builders/git'
   args:
@@ -121,8 +122,6 @@ steps:
   args:
   - '-c' # pass what follows as a command to bash
   - |
-    git commit -am "cloud build manifest"
-    |
     ssh -i /workspace/id_rsa git push git@github.com:bkauf/microservices-demo staging
 
   volumes:

@@ -88,7 +88,6 @@ steps:
 #Commit Working
 - id: 'Git Commit'
   name: 'gcr.io/cloud-builders/git'
-  #entrypoint: 'bash'
   args:
   - commit
   - -am
@@ -98,12 +97,12 @@ steps:
 - id: 'GitHub Push'
   name: 'gcr.io/cloud-builders/git'
   entrypoint: /bin/bash
-#  env:
-#  - GIT_SSH=src/git-ssh2.sh
-  args: ['./src/git-ssh2.sh']
-  #- push
-#  - git@github.com:bkauf/microservices-demo
-#  - staging
+  env:
+  - GIT_SSH=src/git-ssh2.sh
+  args:
+  - push
+  - git@github.com:bkauf/microservices-demo
+  - staging
   volumes:
   - name: 'ssh-setup'
     path: /root/.ssh

@@ -38,8 +38,8 @@ steps:
 - id: 'Git Commit'
   name: 'gcr.io/cloud-builders/git'
   args: ['config', '--global', 'user.name', '"Cloud Build"']
-  args: ['config', '--global', 'user.email', '"brian.kaufman@gmail.com"']
-  args: ['commit', '-am', 'changes']
+  #args: ['config', '--global', 'user.email', '"brian.kaufman@gmail.com"']
+  #args: ['commit', '-am', 'changes']
 
 # Prepare for github c
 - id: 'Prepair Git Hub'

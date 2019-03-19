@@ -67,7 +67,7 @@ steps:
   dir: release
   entrypoint: 'bash'
   args:
-  - 'kubectl get deployment -o yaml > deployment-manifest.yaml'
+  - 'kubectl get deployment'
 
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_ZONE'

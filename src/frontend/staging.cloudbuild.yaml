@@ -65,8 +65,7 @@ steps:
 - id: 'Git Test'
   name: 'gcr.io/cloud-builders/git'
   entrypoint: 'bash'
-  args:
-  - git checkout staging
+  args: ['git', 'checkout', 'staging']
 
 
 - id: 'Update manifest'

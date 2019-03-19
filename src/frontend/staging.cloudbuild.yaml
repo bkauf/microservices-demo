@@ -68,7 +68,7 @@ steps:
   dir: release
   #args: ['kubectl get deployment -o yaml']
   #,'> deployment-manifest.yaml']
-  args: [''../src/frontend/buildcmd.sh']
+  args: ['../src/frontend/buildcmd.sh']
   #args: ['get deployment -o yaml > deployment-manifest.yaml']
   #args: ['-c', 'gcloud compute instances list > gce-list.txt']
 

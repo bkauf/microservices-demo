@@ -82,7 +82,8 @@ steps:
 
 - id: 'Copy manifest '
   name: gcr.io/cloud-builders/gsutil
-  args: ['cp', 'gs://$PROJECT_ID-github/test.yaml', release/deployment-manifest.yaml']
+  dir: release
+  args: ['cp', 'gs://$PROJECT_ID-github/test.yaml', 'deployment-manifest.yaml']
 
 - id: 'Git Commit'
   name: 'gcr.io/cloud-builders/git'

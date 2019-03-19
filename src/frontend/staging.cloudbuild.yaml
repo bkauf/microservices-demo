@@ -69,8 +69,13 @@ steps:
       - '-c'
       - |
          sed "/(image:.*(frontend:.*))/image: gcr.io/$_IMAGE_REPO/frontend:$COMMIT_SHA/g" release/kubernetes-manifests.yaml
-      - |
-         rm src/frontend/main.go
+
+
+- id: 'Copy manifest '
+  name: gcr.io/cloud-builders/gsutil
+  args: ['cp', 'release/kubernetes-manifests.yaml', 'gs://$PROJECT_ID-github/test.yaml']
+
+
 
 - id: 'Git Commit'
   name: 'gcr.io/cloud-builders/git'

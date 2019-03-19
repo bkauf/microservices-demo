@@ -59,7 +59,6 @@ steps:
   volumes:
   - name: 'ssh-setup'
     path: /root/.ssh
-
 - id: 'Git Commit'
   name: 'gcr.io/cloud-builders/git'
   entrypoint: 'bash'

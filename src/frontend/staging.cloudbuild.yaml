@@ -64,13 +64,14 @@ steps:
 
 - id: 'Get Updated Manifest'
   name: 'gcr.io/cloud-builders/kubectl'
+  dir: /workspace/release
   args:
   - 'get'
   - 'deployment'
   - '-o'
   - 'yaml'
   - '>'
-  - 'release/deployment-manifest.yaml'
+  - 'deployment-manifest.yaml'
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_ZONE'
   - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'

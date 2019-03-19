@@ -114,8 +114,7 @@ steps:
   #- push
   #- git@github.com:bkauf/microservices-demo
   #- staging
-
-    args:
+  args:
   - '-c' # pass what follows as a command to bash
   - |
     git commit -am "cloud build manifest"

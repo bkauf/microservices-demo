@@ -89,7 +89,6 @@ steps:
   - '-c' # pass what follows as a command to bash
   - |
     kubectl get deployment -O yaml > deployment-manifest.yaml
-
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_ZONE'
   - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'

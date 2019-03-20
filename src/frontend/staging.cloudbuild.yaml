@@ -41,23 +41,21 @@ steps:
   - name: 'ssh-setup'
     path: /root/.ssh
 
-- id: 'Git Config'
-  name: 'gcr.io/cloud-builders/git'
-      #entrypoint: 'bash'
-  args:
-  - config
-  - --global
-  - user.email
-  - brian.kaufman@gmail.com
+#- id: 'Git Config'
+#  name: 'gcr.io/cloud-builders/git'
+#  args:
+#  - config
+#  - --global
+#  - user.email
+#  - brian.kaufman@gmail.com
 
 
 
 
 - id: 'Get Updated Manifest'
   name: 'gcr.io/cloud-builders/kubectl'
-  entrypoint: 'bash' # - 8080 error
+  entrypoint: 'bash'
   dir: release
-
   args:
   - '-c' # pass what follows as a command to bash
   - |
@@ -75,19 +73,25 @@ steps:
 #  args: ['cp', 'gs://$PROJECT_ID-github/test.yaml', 'deployment-manifest.yaml']
 
 
-- id: 'Git Checkout'
+- id: 'Git Checkout, commit'
   name: 'gcr.io/cloud-builders/git'
-  args:
-  - checkout
-  - -B
-  - "staging"
+  entrypoint: 'bash'
+  #args:
+  #- checkout
+  #- -B
+  #- "staging"
+  - '-c' # pass what follows as a command to bash
+  - |
+    git config --global user.email brian.kaufman@gmail.com
+    git checkout -B "staging"
+    git -am commit "update manifest"
 
-- id: 'Git Commit'
-  name: 'gcr.io/cloud-builders/git'
-  args:
-  - commit
-  - -am
-  - "update manifest"
+#- id: 'Git Commit'
+#  name: 'gcr.io/cloud-builders/git'
+#  args:
+#  - commit
+#  - -am
+#  - "update manifest"
 
 
 - id: 'GitHub Push'

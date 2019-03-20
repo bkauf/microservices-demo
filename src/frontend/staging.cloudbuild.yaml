@@ -20,10 +20,10 @@ steps:
   - 'CLOUDSDK_CORE_PROJECT=$_CLUSTER_PROJECT'
 
 
-- id: 'Git Clone'
-  name: 'gcr.io/cloud-builders/git'
+#- id: 'Git Clone'
+#  name: 'gcr.io/cloud-builders/git'
 #  args: ['clone', '-b', 'staging', 'https://github.com/bkauf/microservices-demo.git']
-  args: ['checkout', '-B', 'staging']
+#  args: ['checkout', '-B', 'staging']
 
 
 # Prepare for github
@@ -48,11 +48,6 @@ steps:
   - |
     gcloud container clusters get-credentials --zone=$_CLUSTER_ZONE --project=$_CLUSTER_PROJECT $_CLUSTER_NAME
     kubectl get deployment -o yaml > deployment-manifest.yaml
-  #env:
-  #- 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_ZONE'
-  #- 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'
-  #- 'CLOUDSDK_CORE_PROJECT=$_CLUSTER_PROJECT'
-
 
 - id: 'Copy manifest'
   name: gcr.io/cloud-builders/gsutil
@@ -69,6 +64,7 @@ steps:
     git checkout -B "staging"
     git add release/deployment-manifest.yaml
     git commit -am "Cloud Build update manifest"
+
 
 - id: 'GitHub Push'
   name: 'gcr.io/cloud-builders/git'

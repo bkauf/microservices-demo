@@ -53,25 +53,26 @@ steps:
 
 
 
-#- id: 'Get Updated Manifest'
-#  name: 'gcr.io/cloud-builders/kubectl'
-#  entrypoint: 'bash' # - 8080 error
-#  dir: release
+- id: 'Get Updated Manifest'
+  name: 'gcr.io/cloud-builders/kubectl'
+  entrypoint: 'bash' # - 8080 error
+  dir: release
 
-#  args:
-#  - '-c' # pass what follows as a command to bash
-#  - |
-#    kubectl get deployment -o yaml > deployment-manifest.yaml
+  args:
+  - '-c' # pass what follows as a command to bash
+  - |
+    gcloud container clusters get-credentials --zone=$_CLUSTER_ZONE --project=$_CLUSTER_PROJECT $_CLUSTER_NAME
+    kubectl get deployment -o yaml > deployment-manifest.yaml
 #  env:
 #  - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_ZONE'
 #  - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'
 #  - 'CLOUDSDK_CORE_PROJECT=$_CLUSTER_PROJECT'
 
 
-- id: 'Copy manifest '
-  name: gcr.io/cloud-builders/gsutil
-  dir: release
-  args: ['cp', 'gs://$PROJECT_ID-github/test.yaml', 'deployment-manifest.yaml']
+#- id: 'Copy manifest '
+#  name: gcr.io/cloud-builders/gsutil
+#  dir: release
+#  args: ['cp', 'gs://$PROJECT_ID-github/test.yaml', 'deployment-manifest.yaml']
 
 
 - id: 'Git Checkout'

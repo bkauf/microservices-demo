@@ -84,7 +84,7 @@ steps:
   - |
     git config --global user.email brian.kaufman@gmail.com
     git checkout -B "staging"
-    git -am commit "update manifest"
+    git commit -am "update manifest"
 
 #- id: 'Git Commit'
 #  name: 'gcr.io/cloud-builders/git'

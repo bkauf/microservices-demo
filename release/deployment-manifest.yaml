@@ -5,13 +5,13 @@ items:
   metadata:
     annotations:
       deployment.kubernetes.io/revision: "1"
-    creationTimestamp: 2019-03-15T20:24:47Z
+    creationTimestamp: 2019-03-15T20:09:08Z
     generation: 1
     name: adservice
     namespace: default
-    resourceVersion: "1804"
+    resourceVersion: "1296"
     selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/adservice
-    uid: 6056f307-4760-11e9-ad29-42010a8000b4
+    uid: 30db6e13-475e-11e9-b591-42010a80017a
   spec:
     progressDeadlineSeconds: 600
     replicas: 1
@@ -77,14 +77,14 @@ items:
   status:
     availableReplicas: 1
     conditions:
-    - lastTransitionTime: 2019-03-15T20:25:31Z
-      lastUpdateTime: 2019-03-15T20:25:31Z
+    - lastTransitionTime: 2019-03-15T20:09:52Z
+      lastUpdateTime: 2019-03-15T20:09:52Z
       message: Deployment has minimum availability.
       reason: MinimumReplicasAvailable
       status: "True"
       type: Available
-    - lastTransitionTime: 2019-03-15T20:24:47Z
-      lastUpdateTime: 2019-03-15T20:25:31Z
+    - lastTransitionTime: 2019-03-15T20:09:08Z
+      lastUpdateTime: 2019-03-15T20:09:52Z
       message: ReplicaSet "adservice-6cd6965787" has successfully progressed.
       reason: NewReplicaSetAvailable
       status: "True"
@@ -98,13 +98,13 @@ items:
   metadata:
     annotations:
       deployment.kubernetes.io/revision: "1"
-    creationTimestamp: 2019-03-15T20:24:46Z
+    creationTimestamp: 2019-03-15T20:09:01Z
     generation: 1
     name: cartservice
     namespace: default
-    resourceVersion: "822779"
+    resourceVersion: "1052487"
     selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/cartservice
-    uid: 5fc901d8-4760-11e9-ad29-42010a8000b4
+    uid: 2cf95239-475e-11e9-b591-42010a80017a
   spec:
     progressDeadlineSeconds: 600
     replicas: 1
@@ -174,14 +174,14 @@ items:
   status:
     availableReplicas: 1
     conditions:
-    - lastTransitionTime: 2019-03-15T20:24:46Z
-      lastUpdateTime: 2019-03-15T20:25:38Z
+    - lastTransitionTime: 2019-03-15T20:09:01Z
+      lastUpdateTime: 2019-03-15T20:09:41Z
       message: ReplicaSet "cartservice-78969bb54d" has successfully progressed.
       reason: NewReplicaSetAvailable
       status: "True"
       type: Progressing
-    - lastTransitionTime: 2019-03-19T17:54:08Z
-      lastUpdateTime: 2019-03-19T17:54:08Z
+    - lastTransitionTime: 2019-03-20T19:47:01Z
+      lastUpdateTime: 2019-03-20T19:47:01Z
       message: Deployment has minimum availability.
       reason: MinimumReplicasAvailable
       status: "True"
@@ -195,13 +195,13 @@ items:
   metadata:
     annotations:
       deployment.kubernetes.io/revision: "1"
-    creationTimestamp: 2019-03-15T20:24:44Z
+    creationTimestamp: 2019-03-15T20:08:53Z
     generation: 1
     name: checkoutservice
     namespace: default
-    resourceVersion: "1654"
+    resourceVersion: "1058"
     selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/checkoutservice
-    uid: 5f0979dc-4760-11e9-ad29-42010a8000b4
+    uid: 27d89775-475e-11e9-b591-42010a80017a
   spec:
     progressDeadlineSeconds: 600
     replicas: 1
@@ -275,14 +275,14 @@ items:
   status:
     availableReplicas: 1
     conditions:
-    - lastTransitionTime: 2019-03-15T20:24:51Z
-      lastUpdateTime: 2019-03-15T20:24:51Z
+    - lastTransitionTime: 2019-03-15T20:09:03Z
+      lastUpdateTime: 2019-03-15T20:09:03Z
       message: Deployment has minimum availability.
       reason: MinimumReplicasAvailable
       status: "True"
       type: Available
-    - lastTransitionTime: 2019-03-15T20:24:44Z
-      lastUpdateTime: 2019-03-15T20:24:51Z
+    - lastTransitionTime: 2019-03-15T20:08:53Z
+      lastUpdateTime: 2019-03-15T20:09:03Z
       message: ReplicaSet "checkoutservice-6848667dd7" has successfully progressed.
       reason: NewReplicaSetAvailable
       status: "True"
@@ -296,13 +296,13 @@ items:
   metadata:
     annotations:
       deployment.kubernetes.io/revision: "1"
-    creationTimestamp: 2019-03-15T20:24:46Z
+    creationTimestamp: 2019-03-15T20:09:04Z
     generation: 1
     name: currencyservice
     namespace: default
-    resourceVersion: "1706"
+    resourceVersion: "1197"
     selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/currencyservice
-    uid: 5ffa7821-4760-11e9-ad29-42010a8000b4
+    uid: 2e450264-475e-11e9-b591-42010a80017a
   spec:
     progressDeadlineSeconds: 600
     replicas: 1
@@ -364,14 +364,14 @@ items:
   status:
     availableReplicas: 1
     conditions:
-    - lastTransitionTime: 2019-03-15T20:25:01Z
-      lastUpdateTime: 2019-03-15T20:25:01Z
+    - lastTransitionTime: 2019-03-15T20:09:21Z
+      lastUpdateTime: 2019-03-15T20:09:21Z
       message: Deployment has minimum availability.
       reason: MinimumReplicasAvailable
       status: "True"
       type: Available
-    - lastTransitionTime: 2019-03-15T20:24:46Z
-      lastUpdateTime: 2019-03-15T20:25:01Z
+    - lastTransitionTime: 2019-03-15T20:09:04Z
+      lastUpdateTime: 2019-03-15T20:09:21Z
       message: ReplicaSet "currencyservice-668f49f985" has successfully progressed.
       reason: NewReplicaSetAvailable
       status: "True"
@@ -385,13 +385,13 @@ items:
   metadata:
     annotations:
       deployment.kubernetes.io/revision: "1"
-    creationTimestamp: 2019-03-15T20:24:44Z
+    creationTimestamp: 2019-03-15T20:08:51Z
     generation: 1
     name: emailservice
     namespace: default
-    resourceVersion: "1741"
+    resourceVersion: "1156"
     selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/emailservice
-    uid: 5ee81b7c-4760-11e9-ad29-42010a8000b4
+    uid: 26db037d-475e-11e9-b591-42010a80017a
   spec:
     progressDeadlineSeconds: 600
     replicas: 1
@@ -452,14 +452,14 @@ items:
   status:
     availableReplicas: 1
     conditions:
-    - lastTransitionTime: 2019-03-15T20:25:09Z
-      lastUpdateTime: 2019-03-15T20:25:09Z
+    - lastTransitionTime: 2019-03-15T20:09:13Z
+      lastUpdateTime: 2019-03-15T20:09:13Z
       message: Deployment has minimum availability.
       reason: MinimumReplicasAvailable
       status: "True"
       type: Available
-    - lastTransitionTime: 2019-03-15T20:24:44Z
-      lastUpdateTime: 2019-03-15T20:25:09Z
+    - lastTransitionTime: 2019-03-15T20:08:51Z
+      lastUpdateTime: 2019-03-15T20:09:13Z
       message: ReplicaSet "emailservice-796bb9588b" has successfully progressed.
       reason: NewReplicaSetAvailable
       status: "True"
@@ -472,16 +472,16 @@ items:
   kind: Deployment
   metadata:
     annotations:
-      deployment.kubernetes.io/revision: "4"
-    creationTimestamp: 2019-03-15T20:24:45Z
-    generation: 4
+      deployment.kubernetes.io/revision: "14"
+    creationTimestamp: 2019-03-15T20:08:56Z
+    generation: 14
     labels:
       app: frontend
     name: frontend
     namespace: default
-    resourceVersion: "617954"
+    resourceVersion: "1059174"
     selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/frontend
-    uid: 5f5873aa-4760-11e9-ad29-42010a8000b4
+    uid: 29a99996-475e-11e9-b591-42010a80017a
   spec:
     progressDeadlineSeconds: 600
     replicas: 1
@@ -516,7 +516,7 @@ items:
             value: checkoutservice:5050
           - name: AD_SERVICE_ADDR
             value: adservice:9555
-          image: gcr.io/cicd-march-25th-prod/frontend:p4.6.1
+          image: gcr.io/cicd-march-25th/frontend:209e05427e238b45dc2551a68051eec208184642
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 3
@@ -565,34 +565,35 @@ items:
   status:
     availableReplicas: 1
     conditions:
-    - lastTransitionTime: 2019-03-15T20:25:07Z
-      lastUpdateTime: 2019-03-15T20:25:07Z
+    - lastTransitionTime: 2019-03-15T20:09:10Z
+      lastUpdateTime: 2019-03-15T20:09:10Z
       message: Deployment has minimum availability.
       reason: MinimumReplicasAvailable
       status: "True"
       type: Available
-    - lastTransitionTime: 2019-03-15T20:24:45Z
-      lastUpdateTime: 2019-03-18T18:36:49Z
-      message: ReplicaSet "frontend-665786db4c" has successfully progressed.
-      reason: NewReplicaSetAvailable
+    - lastTransitionTime: 2019-03-15T20:08:56Z
+      lastUpdateTime: 2019-03-20T20:32:37Z
+      message: ReplicaSet "frontend-5b6c556568" is progressing.
+      reason: ReplicaSetUpdated
       status: "True"
       type: Progressing
-    observedGeneration: 4
+    observedGeneration: 14
     readyReplicas: 1
-    replicas: 1
+    replicas: 2
+    unavailableReplicas: 1
     updatedReplicas: 1
 - apiVersion: extensions/v1beta1
   kind: Deployment
   metadata:
     annotations:
       deployment.kubernetes.io/revision: "1"
-    creationTimestamp: 2019-03-15T20:24:46Z
+    creationTimestamp: 2019-03-15T20:09:03Z
     generation: 1
     name: loadgenerator
     namespace: default
-    resourceVersion: "1874"
+    resourceVersion: "1284"
     selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/loadgenerator
-    uid: 5fec4966-4760-11e9-ad29-42010a8000b4
+    uid: 2dcf6b7d-475e-11e9-b591-42010a80017a
   spec:
     progressDeadlineSeconds: 600
     replicas: 1
@@ -652,14 +653,14 @@ items:
   status:
     availableReplicas: 1
     conditions:
-    - lastTransitionTime: 2019-03-15T20:25:55Z
-      lastUpdateTime: 2019-03-15T20:25:55Z
+    - lastTransitionTime: 2019-03-15T20:09:49Z
+      lastUpdateTime: 2019-03-15T20:09:49Z
       message: Deployment has minimum availability.
       reason: MinimumReplicasAvailable
       status: "True"
       type: Available
-    - lastTransitionTime: 2019-03-15T20:24:46Z
-      lastUpdateTime: 2019-03-15T20:25:55Z
+    - lastTransitionTime: 2019-03-15T20:09:03Z
+      lastUpdateTime: 2019-03-15T20:09:49Z
       message: ReplicaSet "loadgenerator-b67b89d8f" has successfully progressed.
       reason: NewReplicaSetAvailable
       status: "True"
@@ -673,13 +674,13 @@ items:
   metadata:
     annotations:
       deployment.kubernetes.io/revision: "1"
-    creationTimestamp: 2019-03-15T20:24:45Z
+    creationTimestamp: 2019-03-15T20:08:58Z
     generation: 1
     name: paymentservice
     namespace: default
-    resourceVersion: "1776"
+    resourceVersion: "1219"
     selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/paymentservice
-    uid: 5f82dbde-4760-11e9-ad29-42010a8000b4
+    uid: 2b1113f4-475e-11e9-b591-42010a80017a
   spec:
     progressDeadlineSeconds: 600
     replicas: 1
@@ -740,14 +741,14 @@ items:
   status:
     availableReplicas: 1
     conditions:
-    - lastTransitionTime: 2019-03-15T20:25:21Z
-      lastUpdateTime: 2019-03-15T20:25:21Z
+    - lastTransitionTime: 2019-03-15T20:09:26Z
+      lastUpdateTime: 2019-03-15T20:09:26Z
       message: Deployment has minimum availability.
       reason: MinimumReplicasAvailable
       status: "True"
       type: Available
-    - lastTransitionTime: 2019-03-15T20:24:45Z
-      lastUpdateTime: 2019-03-15T20:25:21Z
+    - lastTransitionTime: 2019-03-15T20:08:58Z
+      lastUpdateTime: 2019-03-15T20:09:26Z
       message: ReplicaSet "paymentservice-548657568f" has successfully progressed.
       reason: NewReplicaSetAvailable
       status: "True"
@@ -761,13 +762,13 @@ items:
   metadata:
     annotations:
       deployment.kubernetes.io/revision: "1"
-    creationTimestamp: 2019-03-15T20:24:45Z
+    creationTimestamp: 2019-03-15T20:09:00Z
     generation: 1
     name: productcatalogservice
     namespace: default
-    resourceVersion: "1660"
+    resourceVersion: "1193"
     selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/productcatalogservice
-    uid: 5fa1eb14-4760-11e9-ad29-42010a8000b4
+    uid: 2bf72d82-475e-11e9-b591-42010a80017a
   spec:
     progressDeadlineSeconds: 600
     replicas: 1
@@ -828,14 +829,14 @@ items:
   status:
     availableReplicas: 1
     conditions:
-    - lastTransitionTime: 2019-03-15T20:24:52Z
-      lastUpdateTime: 2019-03-15T20:24:52Z
+    - lastTransitionTime: 2019-03-15T20:09:21Z
+      lastUpdateTime: 2019-03-15T20:09:21Z
       message: Deployment has minimum availability.
       reason: MinimumReplicasAvailable
       status: "True"
       type: Available
-    - lastTransitionTime: 2019-03-15T20:24:45Z
-      lastUpdateTime: 2019-03-15T20:24:52Z
+    - lastTransitionTime: 2019-03-15T20:09:00Z
+      lastUpdateTime: 2019-03-15T20:09:21Z
       message: ReplicaSet "productcatalogservice-7b94dfb45c" has successfully progressed.
       reason: NewReplicaSetAvailable
       status: "True"
@@ -849,13 +850,13 @@ items:
   metadata:
     annotations:
       deployment.kubernetes.io/revision: "1"
-    creationTimestamp: 2019-03-15T20:24:45Z
+    creationTimestamp: 2019-03-15T20:08:54Z
     generation: 1
     name: recommendationservice
     namespace: default
-    resourceVersion: "1712"
+    resourceVersion: "1165"
     selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/recommendationservice
-    uid: 5f28021c-4760-11e9-ad29-42010a8000b4
+    uid: 28b96598-475e-11e9-b591-42010a80017a
   spec:
     progressDeadlineSeconds: 600
     replicas: 1
@@ -919,14 +920,14 @@ items:
   status:
     availableReplicas: 1
     conditions:
-    - lastTransitionTime: 2019-03-15T20:25:02Z
-      lastUpdateTime: 2019-03-15T20:25:02Z
+    - lastTransitionTime: 2019-03-15T20:09:14Z
+      lastUpdateTime: 2019-03-15T20:09:14Z
       message: Deployment has minimum availability.
       reason: MinimumReplicasAvailable
       status: "True"
       type: Available
-    - lastTransitionTime: 2019-03-15T20:24:45Z
-      lastUpdateTime: 2019-03-15T20:25:02Z
+    - lastTransitionTime: 2019-03-15T20:08:54Z
+      lastUpdateTime: 2019-03-15T20:09:14Z
       message: ReplicaSet "recommendationservice-5fb85f46df" has successfully progressed.
       reason: NewReplicaSetAvailable
       status: "True"
@@ -940,13 +941,13 @@ items:
   metadata:
     annotations:
       deployment.kubernetes.io/revision: "1"
-    creationTimestamp: 2019-03-15T20:24:46Z
+    creationTimestamp: 2019-03-15T20:09:06Z
     generation: 1
     name: redis-cart
     namespace: default
-    resourceVersion: "1697"
+    resourceVersion: "1181"
     selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/redis-cart
-    uid: 603949fe-4760-11e9-ad29-42010a8000b4
+    uid: 300161fe-475e-11e9-b591-42010a80017a
   spec:
     progressDeadlineSeconds: 600
     replicas: 1
@@ -1009,14 +1010,14 @@ items:
   status:
     availableReplicas: 1
     conditions:
-    - lastTransitionTime: 2019-03-15T20:25:00Z
-      lastUpdateTime: 2019-03-15T20:25:00Z
+    - lastTransitionTime: 2019-03-15T20:09:17Z
+      lastUpdateTime: 2019-03-15T20:09:17Z
       message: Deployment has minimum availability.
       reason: MinimumReplicasAvailable
       status: "True"
       type: Available
-    - lastTransitionTime: 2019-03-15T20:24:46Z
-      lastUpdateTime: 2019-03-15T20:25:00Z
+    - lastTransitionTime: 2019-03-15T20:09:06Z
+      lastUpdateTime: 2019-03-15T20:09:17Z
       message: ReplicaSet "redis-cart-9b864d47f" has successfully progressed.
       reason: NewReplicaSetAvailable
       status: "True"
@@ -1030,13 +1031,13 @@ items:
   metadata:
     annotations:
       deployment.kubernetes.io/revision: "1"
-    creationTimestamp: 2019-03-15T20:24:46Z
+    creationTimestamp: 2019-03-15T20:09:05Z
     generation: 1
     name: shippingservice
     namespace: default
-    resourceVersion: "1689"
+    resourceVersion: "1129"
     selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/shippingservice
-    uid: 6019e695-4760-11e9-ad29-42010a8000b4
+    uid: 2f2f921c-475e-11e9-b591-42010a80017a
   spec:
     progressDeadlineSeconds: 600
     replicas: 1
@@ -1097,14 +1098,14 @@ items:
   status:
     availableReplicas: 1
     conditions:
-    - lastTransitionTime: 2019-03-15T20:24:58Z
-      lastUpdateTime: 2019-03-15T20:24:58Z
+    - lastTransitionTime: 2019-03-15T20:09:08Z
+      lastUpdateTime: 2019-03-15T20:09:08Z
       message: Deployment has minimum availability.
       reason: MinimumReplicasAvailable
       status: "True"
       type: Available
-    - lastTransitionTime: 2019-03-15T20:24:46Z
-      lastUpdateTime: 2019-03-15T20:24:58Z
+    - lastTransitionTime: 2019-03-15T20:09:05Z
+      lastUpdateTime: 2019-03-15T20:09:08Z
       message: ReplicaSet "shippingservice-5f5d75bf65" has successfully progressed.
       reason: NewReplicaSetAvailable
       status: "True"

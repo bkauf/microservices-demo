@@ -20,12 +20,9 @@ steps:
 #  - 'CLOUDSDK_CORE_PROJECT=$_CLUSTER_PROJECT'
 
 
-#- id: 'Git Clone'
-#  name: 'gcr.io/cloud-builders/git'
-  #args: ['clone', '-b', 'staging', 'https://github.com/bkauf/microservices-demo.git']
-  #args: ['checkout','-B','staging']
-
-
+- id: 'Git Clone'
+  name: 'gcr.io/cloud-builders/git'
+  args: ['clone', '-b', 'staging', 'https://github.com/bkauf/microservices-demo.git']
 
 # Prepare for github
 - id: 'Copy Git SSH Auth Key into Source Folder'

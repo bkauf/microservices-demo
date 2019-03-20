@@ -45,14 +45,14 @@ steps:
   - '-c' # pass what follows as a command to bash
   - |
     gcloud container clusters get-credentials --zone=$_CLUSTER_ZONE --project=$_CLUSTER_PROJECT $_CLUSTER_NAME
-    kubectl get deployment -o yaml > deployment-manifest.yaml
+    kubectl get deployment -o yaml > /workspace/release/deployment-manifest.yaml
   #env:
   #- 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_ZONE'
   #- 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'
   #- 'CLOUDSDK_CORE_PROJECT=$_CLUSTER_PROJECT'
 
 
-- id: 'Copy manifest '
+- id: 'Copy manifest'
   name: gcr.io/cloud-builders/gsutil
   dir: release
   args: ['cp','deployment-manifest.yaml', 'gs://$PROJECT_ID-github/deployment-manifest.yaml',]

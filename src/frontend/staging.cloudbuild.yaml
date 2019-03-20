@@ -65,7 +65,7 @@ steps:
   - |
     git config --global user.email brian.kaufman@gmail.com
     git checkout -B "staging"
-    git add release/deployment-manifest.yaml
+  # git add release/deployment-manifest.yaml
     git commit -am "Cloud Build update manifest"
 
 

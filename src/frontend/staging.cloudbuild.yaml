@@ -67,7 +67,6 @@ steps:
     git checkout -B "staging"
     git commit -am "Cloud Build update manifest"
 
-
 - id: 'GitHub Push'
   name: 'gcr.io/cloud-builders/git'
   env:

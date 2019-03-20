@@ -93,7 +93,6 @@ steps:
 #  - -am
 #  - "update manifest"
 
-
 - id: 'GitHub Push'
   name: 'gcr.io/cloud-builders/git'
   env:

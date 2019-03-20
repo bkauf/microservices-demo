@@ -20,10 +20,10 @@ steps:
 #  - 'CLOUDSDK_CORE_PROJECT=$_CLUSTER_PROJECT'
 
 
-- id: 'Git Clone'
-  name: 'gcr.io/cloud-builders/git'
+#- id: 'Git Clone'
+#  name: 'gcr.io/cloud-builders/git'
   #args: ['clone', '-b', 'staging', 'https://github.com/bkauf/microservices-demo.git']
-  args: ['checkout','-B','staging']
+  #args: ['checkout','-B','staging']
 
 
 
@@ -32,7 +32,6 @@ steps:
   name: gcr.io/cloud-builders/gsutil
   args: ['cp', 'gs://$PROJECT_ID-github/github_rsa', '/workspace/id_rsa']
 
-
 - id: 'Prepare Git Hub'
   name: 'gcr.io/cloud-builders/gcloud'
   dir: /workspace/src
@@ -40,17 +39,6 @@ steps:
   volumes:
   - name: 'ssh-setup'
     path: /root/.ssh
-
-#- id: 'Git Config'
-#  name: 'gcr.io/cloud-builders/git'
-#  args:
-#  - config
-#  - --global
-#  - user.email
-#  - brian.kaufman@gmail.com
-
-
-
 
 - id: 'Get Updated Manifest'
   name: 'gcr.io/cloud-builders/kubectl'
@@ -67,32 +55,23 @@ steps:
 #  - 'CLOUDSDK_CORE_PROJECT=$_CLUSTER_PROJECT'
 
 
-#- id: 'Copy manifest '
-#  name: gcr.io/cloud-builders/gsutil
-#  dir: release
-#  args: ['cp', 'gs://$PROJECT_ID-github/test.yaml', 'deployment-manifest.yaml']
+- id: 'Copy manifest '
+  name: gcr.io/cloud-builders/gsutil
+  dir: release
+  args: ['cp','deployment-manifest.yaml', 'gs://$PROJECT_ID-github/deployment-manifest.yaml',]
 
 
 - id: 'Git Checkout, commit'
   name: 'gcr.io/cloud-builders/git'
   entrypoint: 'bash'
   args:
-  #- checkout
-  #- -B
-  #- "staging"
   - '-c' # pass what follows as a command to bash
   - |
     git config --global user.email brian.kaufman@gmail.com
     git checkout -B "staging"
     git add release/deployment-manifest.yaml
-    git commit -am "update manifest"
+    git commit -am "Cloud Build update manifest"
 
-#- id: 'Git Commit'
-#  name: 'gcr.io/cloud-builders/git'
-#  args:
-#  - commit
-#  - -am
-#  - "update manifest"
 
 - id: 'GitHub Push'
   name: 'gcr.io/cloud-builders/git'

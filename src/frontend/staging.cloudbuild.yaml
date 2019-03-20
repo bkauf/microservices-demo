@@ -46,10 +46,10 @@ steps:
   - |
     gcloud container clusters get-credentials --zone=$_CLUSTER_ZONE --project=$_CLUSTER_PROJECT $_CLUSTER_NAME
     kubectl get deployment -o yaml > deployment-manifest.yaml
-#  env:
-#  - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_ZONE'
-#  - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'
-#  - 'CLOUDSDK_CORE_PROJECT=$_CLUSTER_PROJECT'
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_ZONE'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'
+  - 'CLOUDSDK_CORE_PROJECT=$_CLUSTER_PROJECT'
 
 
 #- id: 'Copy manifest '

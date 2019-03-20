@@ -76,7 +76,7 @@ steps:
 - id: 'Git Checkout, commit'
   name: 'gcr.io/cloud-builders/git'
   entrypoint: 'bash'
-  #args:
+  args:
   #- checkout
   #- -B
   #- "staging"

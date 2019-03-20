@@ -60,7 +60,6 @@ steps:
 #  dir: release
   #args: ['cp','deployment-manifest.yaml', 'gs://$PROJECT_ID-github/deployment-manifest.yaml',]
 
-
 - id: 'Git Checkout, commit'
   name: 'gcr.io/cloud-builders/git'
   entrypoint: 'bash'

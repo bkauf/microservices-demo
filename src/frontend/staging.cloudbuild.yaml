@@ -52,10 +52,10 @@ steps:
   - 'CLOUDSDK_CORE_PROJECT=$_CLUSTER_PROJECT'
 
 
-#- id: 'Copy manifest '
-  #name: gcr.io/cloud-builders/gsutil
-#  dir: release
-  #args: ['cp','deployment-manifest.yaml', 'gs://$PROJECT_ID-github/deployment-manifest.yaml',]
+- id: 'Copy manifest '
+  name: gcr.io/cloud-builders/gsutil
+  dir: release
+  args: ['cp','deployment-manifest.yaml', 'gs://$PROJECT_ID-github/deployment-manifest.yaml',]
 
 - id: 'Git Checkout, commit'
   name: 'gcr.io/cloud-builders/git'

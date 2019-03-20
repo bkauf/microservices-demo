@@ -472,14 +472,14 @@ items:
   kind: Deployment
   metadata:
     annotations:
-      deployment.kubernetes.io/revision: "12"
+      deployment.kubernetes.io/revision: "13"
     creationTimestamp: 2019-03-15T20:08:56Z
-    generation: 12
+    generation: 13
     labels:
       app: frontend
     name: frontend
     namespace: default
-    resourceVersion: "1049517"
+    resourceVersion: "1050178"
     selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/frontend
     uid: 29a99996-475e-11e9-b591-42010a80017a
   spec:
@@ -516,7 +516,7 @@ items:
             value: checkoutservice:5050
           - name: AD_SERVICE_ADDR
             value: adservice:9555
-          image: gcr.io/cicd-march-25th/frontend:4ecb363bc64958378ebb29962f9678598419aab7
+          image: gcr.io/cicd-march-25th/frontend:c5f0a0e840ed5a83d859ccee7142ea7b12ba4637
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 3
@@ -572,12 +572,12 @@ items:
       status: "True"
       type: Available
     - lastTransitionTime: 2019-03-15T20:08:56Z
-      lastUpdateTime: 2019-03-20T19:27:09Z
-      message: ReplicaSet "frontend-7ff684d5d7" is progressing.
+      lastUpdateTime: 2019-03-20T19:31:27Z
+      message: ReplicaSet "frontend-57d684669c" is progressing.
       reason: ReplicaSetUpdated
       status: "True"
       type: Progressing
-    observedGeneration: 12
+    observedGeneration: 13
     readyReplicas: 1
     replicas: 2
     unavailableReplicas: 1

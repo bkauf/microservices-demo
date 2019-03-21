@@ -27,7 +27,7 @@ steps:
 
 - id: 'Prepare Git Hub'
   name: 'gcr.io/cloud-builders/gcloud'
-  dir: /workspace
+  dir: /workspace/microservices-demo-cfg
   entrypoint: './githubssh.sh'
   volumes:
   - name: 'ssh-setup'
@@ -45,16 +45,16 @@ steps:
   - '-c' # pass what follows as a command to bash
   - |
     gcloud container clusters get-credentials --zone=$_CLUSTER_ZONE --project=$_CLUSTER_PROJECT $_CLUSTER_NAME
-    kubectl get deployment -o yaml > $_CLUSTER_NAME-deployments.yaml
+    kubectl get deployment -o yaml > deployments.yaml
 
   - id: 'Copy Manifest'
     name: gcr.io/cloud-builders/gsutil
     dir: microservices-demo-cfg/staging
-    args: ['cp','$_CLUSTER_NAME-deployments.yaml', 'gs://$PROJECT_ID-github/$_CLUSTER_NAME-deployments.yaml']
+    args: ['cp','deployments.yaml', 'gs://$PROJECT_ID-github/deployments.yaml']
 
   - id: 'Git Checkout, commit'
     name: 'gcr.io/cloud-builders/git'
-    dir: microservices-demo-cfg
+    dir: /workspace/microservices-demo-cfg
     entrypoint: 'bash'
     args:
     - '-c' # pass what follows as a command to bash
@@ -72,7 +72,7 @@ steps:
 
   - id: 'GitHub Push'
     name: 'gcr.io/cloud-builders/git'
-    dir: microservices-demo-cfg/
+    dir: workspace/microservices-demo-cfg/
     env:
     - GIT_SSH=src/git-ssh.sh
     args:

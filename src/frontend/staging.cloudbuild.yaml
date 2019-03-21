@@ -62,7 +62,7 @@ steps:
 - id: 'commit'
   name: 'gcr.io/cloud-builders/git'
   entrypoint: 'bash'
-  dir: microservices-demo-cfg
+  dir: microservices-demo-cfg/staging
   args:
   - '-c' # pass what follows as a command to bash
   - |

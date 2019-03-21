@@ -3,11 +3,11 @@ steps:
   name: 'gcr.io/cloud-builders/docker'
   args: ['build', '--tag=gcr.io/$_IMAGE_REPO/frontend:$COMMIT_SHA', 'src/frontend/']
 
-- id: 'Push Container to $_ENV registry'
+- id: 'Push Container to Staging registry'
   name: 'gcr.io/cloud-builders/docker'
   args: ["push", "gcr.io/$_IMAGE_REPO/frontend:$COMMIT_SHA"]
 
-- id: 'Deploy to $_ENV Cluster'
+- id: 'Deploy to Staging Cluster'
   name: 'gcr.io/cloud-builders/kubectl'
   args:
   - 'set'
@@ -19,13 +19,15 @@ steps:
   - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'
   - 'CLOUDSDK_CORE_PROJECT=$_CLUSTER_PROJECT'
 
+  # Prepare for github to store k8s config
+
 
 - id: 'Copy Git SSH Auth Key into Source Folder'
   name: gcr.io/cloud-builders/gsutil
   args: ['cp', 'gs://$PROJECT_ID-github/github_rsa', '/workspace/id_rsa']
 
 
-- id: 'Connect, Git Clone, Git Checkout, commit'
+- id: 'Connect, Git Clone, Git Checkout'
   name: 'gcr.io/cloud-builders/git'
   entrypoint: 'bash'
   args:

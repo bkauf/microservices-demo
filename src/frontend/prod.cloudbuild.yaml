@@ -21,16 +21,25 @@ steps:
   - 'CLOUDSDK_CORE_PROJECT=$_CLUSTER_PROJECT'
 
 
-  # Prepare for github
+  # Prepare for github to store k8s config
 
 - id: 'Copy Git SSH Auth Key into Source Folder'
   name: gcr.io/cloud-builders/gsutil
   args: ['cp', 'gs://$PROJECT_ID-github/github_rsa', '/workspace/id_rsa']
 
-- id: 'Prepare Git Hub'
-  name: 'gcr.io/cloud-builders/gcloud'
-  dir: /workspace/src
-  entrypoint: './githubssh.sh'
+
+- id: 'Connect, Git Clone, Git Checkout'
+  name: 'gcr.io/cloud-builders/git'
+  entrypoint: 'bash'
+  args:
+  - '-c' # pass what follows as a command to bash
+  - |
+    chmod 600 /workspace/id_rsa
+    ssh-keyscan github.com > /root/.ssh/known_hosts
+    git clone https://github.com/bkauf/$_CONFIG_REPO.git
+    cd $_CONFIG_REPO
+    git checkout -B "master"
+    git config --global user.email cloudbuild@cicdnotary.com
   volumes:
   - name: 'ssh-setup'
     path: /root/.ssh
@@ -39,49 +48,31 @@ steps:
 - id: 'Get Updated Manifest'
   name: 'gcr.io/cloud-builders/kubectl'
   entrypoint: 'bash'
-  dir: release
+  dir: $_CONFIG_REPO/$_ENV
   args:
   - '-c' # pass what follows as a command to bash
   - |
     gcloud container clusters get-credentials --zone=$_CLUSTER_ZONE --project=$_CLUSTER_PROJECT $_CLUSTER_NAME
-    mkdir demo-cfg
-    cd demo-cfg
-    kubectl get deployment -o yaml > deployment-manifest.yaml
+    kubectl get deployment -o yaml > $_CLUSTER_NAME-deployments.yaml
 
-- id: 'Copy Manifest'
-  name: gcr.io/cloud-builders/gsutil
-  dir: release
-  args: ['cp','deployment-manifest.yaml', 'gs://$PROJECT_ID-github/deployment-manifest.yaml']
 
-- id: 'Git Checkout, commit'
+- id: 'Commit'
   name: 'gcr.io/cloud-builders/git'
-  entrypoint: 'bash'
-  args:
-  - '-c' # pass what follows as a command to bash
-  - |
-    git checkout -B "master"
-    git config --global user.email cloudbuild@cicdnotary.com
-    git add release/deployment-manifest.yaml
-    git commit -am "Cloud Build Update Manifest"
-
-#git add release/deployment-manifest.yaml
-
-#- id: 'Git Pull'
-#  name: 'gcr.io/cloud-builders/git'
-#  args: ['pull', 'origin', 'master']
+  dir: $_CONFIG_REPO/$_ENV
+  args: ['commit','-am "Cloud Build Update Manifest"']
 
 
 - id: 'GitHub Push'
   name: 'gcr.io/cloud-builders/git'
+  dir: $_CONFIG_REPO
   env:
-  - GIT_SSH=src/git-ssh.sh
+  - GIT_SSH=/workspace/src/git-ssh.sh
   args:
   - push
-  - git@github.com:bkauf/microservices-demo
+  - git@github.com:bkauf/$_CONFIG_REPO
   - master
   volumes:
   - name: 'ssh-setup'
     path: /root/.ssh
-
 #options:
  #machineType: 'N1_HIGHCPU_8'

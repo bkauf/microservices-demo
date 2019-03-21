@@ -53,7 +53,7 @@ steps:
   - |
     gcloud container clusters get-credentials --zone=$_CLUSTER_ZONE --project=$_CLUSTER_PROJECT $_CLUSTER_NAME
     kubectl get deployment -o yaml > $_CLUSTER_NAME-deployments.yaml
-
+    
 - id: 'Commit and Push'
   name: 'gcr.io/cloud-builders/git'
   entrypoint: 'bash'

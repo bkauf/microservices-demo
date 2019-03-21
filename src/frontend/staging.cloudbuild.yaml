@@ -26,3 +26,12 @@ steps:
 - id: 'Copy Git SSH Auth Key into Source Folder'
   name: gcr.io/cloud-builders/gsutil
   args: ['cp', 'gs://$PROJECT_ID-github/github_rsa', '/workspace/id_rsa']
+
+
+- id: 'Prepare Git Hub'
+  name: 'gcr.io/cloud-builders/gcloud'
+  dir: /workspace/
+  entrypoint: './githubssh.sh'
+  volumes:
+  - name: 'ssh-setup'
+    path: /root/.ssh

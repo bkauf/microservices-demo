@@ -57,9 +57,10 @@ steps:
   - '-c' # pass what follows as a command to bash
   - |
     git config --global user.email brian.kaufman@gmail.com
-    git checkout -B "staging"
-    git add release/deployment-manifest.yaml
     git commit -am "Cloud Build Update Manifest"
+    
+#  git checkout -B "master"
+#git add release/deployment-manifest.yaml
 
 - id: 'GitHub Push'
   name: 'gcr.io/cloud-builders/git'

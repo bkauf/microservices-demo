@@ -49,6 +49,19 @@ steps:
     touch production-cluster-2-delployments.yaml
     git commit -am "Cloud Build Update Manifest"
 
+
+- id: 'Get Updated Manifest'
+  name: 'gcr.io/cloud-builders/kubectl'
+  entrypoint: 'bash'
+  dir: microservices-demo-cfg/staging
+  args:
+  - '-c' # pass what follows as a command to bash
+  - |
+    gcloud container clusters get-credentials --zone=$_CLUSTER_ZONE --project=$_CLUSTER_PROJECT $_CLUSTER_NAME
+    mkdir demo-cfg
+    cd demo-cfg
+    kubectl get deployment -o yaml > $_CLUSTER_NAME-delployments.yaml
+
 - id: 'GitHub Push'
   name: 'gcr.io/cloud-builders/git'
   dir: microservices-demo-cfg

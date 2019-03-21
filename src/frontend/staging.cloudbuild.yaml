@@ -18,9 +18,3 @@ steps:
   - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_ZONE'
   - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'
   - 'CLOUDSDK_CORE_PROJECT=$_CLUSTER_PROJECT'
-
-
-#- id: 'Git Clone'
-#  name: 'gcr.io/cloud-builders/git'
-#  args: ['clone', '-b', 'staging', 'https://github.com/bkauf/microservices-demo.git']
-#  args: ['checkout', '-B', 'staging']

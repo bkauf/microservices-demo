@@ -35,3 +35,23 @@ steps:
   volumes:
   - name: 'ssh-setup'
     path: /root/.ssh
+
+
+
+
+
+
+
+
+  - id: 'GitHub Push'
+    name: 'gcr.io/cloud-builders/git'
+    directory: microservices-demo-cfg
+    env:
+    - GIT_SSH=src/git-ssh.sh
+    args:
+    - push
+    - git@github.com:bkauf/microservices-demo
+    - master
+    volumes:
+    - name: 'ssh-setup'
+      path: /root/.ssh

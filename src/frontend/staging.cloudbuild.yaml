@@ -23,12 +23,12 @@ steps:
 
 
 
-  - id: 'Copy Git SSH Auth Key into Source Folder'
+- id: 'Copy Git SSH Auth Key into Source Folder'
   name: gcr.io/cloud-builders/gsutil
   args: ['cp', 'gs://$PROJECT_ID-github/github_rsa', '/workspace/id_rsa']
 
 
-  - id: 'Prepare Git Hub'
+- id: 'Prepare Git Hub'
   name: 'gcr.io/cloud-builders/gcloud'
   dir: /workspace/
   entrypoint: './githubssh.sh'
@@ -39,7 +39,7 @@ steps:
 
 
 
-  - id: 'Git Checkout, commit'
+- id: 'Git Checkout, commit'
   name: 'gcr.io/cloud-builders/git'
   entrypoint: 'bash'
   args:

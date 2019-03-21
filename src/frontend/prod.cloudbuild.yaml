@@ -58,7 +58,7 @@ steps:
   - |
     git config --global user.email brian.kaufman@gmail.com
     git commit -am "Cloud Build Update Manifest"
-    
+
 #  git checkout -B "master"
 #git add release/deployment-manifest.yaml
 
@@ -69,7 +69,7 @@ steps:
   args:
   - push
   - git@github.com:bkauf/microservices-demo
-  - staging
+  - master
   volumes:
   - name: 'ssh-setup'
     path: /root/.ssh

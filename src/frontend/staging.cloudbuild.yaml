@@ -66,14 +66,16 @@ steps:
   args:
   - '-c' # pass what follows as a command to bash
   - |
-    git add $_CLUSTER_NAME-deployments.yaml
+
     git commit -am "Cloud Build Update Manifest"
+
+  #  git add $_CLUSTER_NAME-deployments.yaml
 
 - id: 'GitHub Push'
   name: 'gcr.io/cloud-builders/git'
   dir: microservices-demo-cfg
   env:
-  - GIT_SSH=/workshapce/src/git-ssh.sh
+  - GIT_SSH=/workspace/src/git-ssh.sh
   args:
   - push
   - git@github.com:bkauf/microservices-demo

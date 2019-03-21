@@ -45,7 +45,6 @@ steps:
 
   - id: 'GitHub Push'
     name: 'gcr.io/cloud-builders/git'
-    dir: microservices-demo-cfg
     env:
     - GIT_SSH=src/git-ssh.sh
     args:

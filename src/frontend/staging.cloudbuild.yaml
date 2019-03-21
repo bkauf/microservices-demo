@@ -78,7 +78,7 @@ steps:
   - GIT_SSH=/workspace/src/git-ssh.sh
   args:
   - push
-  - git@github.com:bkauf/microservices-demo
+  - git@github.com:bkauf/microservices-demo-cfg
   - master
   volumes:
   - name: 'ssh-setup'

@@ -1,90 +1,78 @@
 steps:
 
-#- id: 'Create Container'
-#  name: 'gcr.io/cloud-builders/docker'
-#  args: ['build', '--tag=gcr.io/$_IMAGE_REPO/frontend:$TAG_NAME', 'src/frontend/']
+- id: 'Create Container'
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '--tag=gcr.io/$_IMAGE_REPO/frontend:$TAG_NAME', 'src/frontend/']
 
-#- id: 'Push Container to Production registry'
-#  name: 'gcr.io/cloud-builders/docker'
-#  args: ["push", "gcr.io/$_IMAGE_REPO/frontend:$TAG_NAME"]
+- id: 'Push Container to Production registry'
+  name: 'gcr.io/cloud-builders/docker'
+  args: ["push", "gcr.io/$_IMAGE_REPO/frontend:$TAG_NAME"]
 
-#- id: 'Deploy to Production Cluster'
-#  name: 'gcr.io/cloud-builders/kubectl'
-#  args:
-#  - 'set'
-#  - 'image'
-#  - 'deployment/frontend'
-#  - 'server=gcr.io/$_IMAGE_REPO/frontend:$TAG_NAME'
-#  env:
-#  - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_ZONE'
-#  - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'
-#  - 'CLOUDSDK_CORE_PROJECT=$_CLUSTER_PROJECT'
+- id: 'Deploy to Production Cluster'
+  name: 'gcr.io/cloud-builders/kubectl'
+  args:
+  - 'set'
+  - 'image'
+  - 'deployment/frontend'
+  - 'server=gcr.io/$_IMAGE_REPO/frontend:$TAG_NAME'
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_ZONE'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'
+  - 'CLOUDSDK_CORE_PROJECT=$_CLUSTER_PROJECT'
 
 
-  # Prepare for github
+  # Prepare for github to store k8s config
 
 - id: 'Copy Git SSH Auth Key into Source Folder'
   name: gcr.io/cloud-builders/gsutil
   args: ['cp', 'gs://$PROJECT_ID-github/github_rsa', '/workspace/id_rsa']
 
-- id: 'Prepare Git Hub'
-  name: 'gcr.io/cloud-builders/gcloud'
-  dir: /workspace/src
-  entrypoint: './githubssh.sh'
+
+- id: 'Connect, Git Clone, Git Checkout'
+  name: 'gcr.io/cloud-builders/git'
+  entrypoint: 'bash'
+  args:
+  - '-c' # pass what follows as a command to bash
+  - |
+    chmod 600 /workspace/id_rsa
+    ssh-keyscan github.com > /root/.ssh/known_hosts
+    git clone https://github.com/bkauf/$_CONFIG_REPO.git
+    cd $_CONFIG_REPO
+    git checkout -B "master"
+    git config --global user.email cloudbuild@cicdnotary.com
   volumes:
   - name: 'ssh-setup'
     path: /root/.ssh
-
-- id: 'Git Clone demo-cfg'
-  name: 'gcr.io/cloud-builders/git'
-  args:['clone', 'https://github.com/bkauf/microservices-demo-cfg.git']
 
 
 - id: 'Get Updated Manifest'
   name: 'gcr.io/cloud-builders/kubectl'
   entrypoint: 'bash'
-  dir: microservices-demo-cfg/prod
+  dir: $_CONFIG_REPO/$_ENV
   args:
   - '-c' # pass what follows as a command to bash
   - |
     gcloud container clusters get-credentials --zone=$_CLUSTER_ZONE --project=$_CLUSTER_PROJECT $_CLUSTER_NAME
-    kubectl get deployment -o yaml > deployment-manifest.yaml
+    kubectl get deployment -o yaml > $_CLUSTER_NAME-deployments.yaml
 
-- id: 'Copy Manifest'
-  name: gcr.io/cloud-builders/gsutil
-  dir: microservices-demo-cfg/prod
-  args: ['cp','deployment-manifest.yaml', 'gs://$PROJECT_ID-github/deployment-manifest.yaml']
 
-- id: 'Git Checkout, commit'
+- id: 'Commit'
   name: 'gcr.io/cloud-builders/git'
-  dir: microservices-demo-cfg/prod
-  entrypoint: 'bash'
-  args:
-  - '-c' # pass what follows as a command to bash
-  - |
-    git checkout -B "master"
-    git config --global user.email cloudbuild@cicdnotary.com
-    git commit -am "Cloud Build Update Manifest"
-
-#git add release/deployment-manifest.yaml
-
-#- id: 'Git Pull'
-#  name: 'gcr.io/cloud-builders/git'
-#  args: ['pull', 'origin', 'master']
+  dir: $_CONFIG_REPO/$_ENV
+  args: ['commit','-am "Cloud Build Update Manifest"']
 
 
 - id: 'GitHub Push'
   name: 'gcr.io/cloud-builders/git'
-  dir: microservices-demo-cfg/prod
+  dir: $_CONFIG_REPO
   env:
-  - GIT_SSH=src/git-ssh.sh
+  - GIT_SSH=/workspace/src/git-ssh.sh
   args:
   - push
-  - git@github.com:bkauf/microservices-demo-cfg
+  - git@github.com:bkauf/$_CONFIG_REPO
   - master
   volumes:
   - name: 'ssh-setup'
     path: /root/.ssh
-
 #options:
  #machineType: 'N1_HIGHCPU_8'

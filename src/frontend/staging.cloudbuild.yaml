@@ -18,3 +18,57 @@ steps:
   - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_ZONE'
   - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'
   - 'CLOUDSDK_CORE_PROJECT=$_CLUSTER_PROJECT'
+
+  # Prepare for github to store k8s config
+
+
+- id: 'Copy Git SSH Auth Key into Source Folder'
+  name: gcr.io/cloud-builders/gsutil
+  args: ['cp', 'gs://$PROJECT_ID-github/github_rsa', '/workspace/id_rsa']
+
+
+- id: 'Connect, Git Clone, Git Checkout'
+  name: 'gcr.io/cloud-builders/git'
+  entrypoint: 'bash'
+  args:
+  - '-c' # pass what follows as a command to bash
+  - |
+    chmod 600 /workspace/id_rsa
+    ssh-keyscan github.com > /root/.ssh/known_hosts
+    git clone https://github.com/bkauf/$_CONFIG_REPO.git
+    cd $_CONFIG_REPO
+    git checkout -B "master"
+    git config --global user.email cloudbuild@cicdnotary.com
+  volumes:
+  - name: 'ssh-setup'
+    path: /root/.ssh
+
+
+- id: 'Get Updated Manifest'
+  name: 'gcr.io/cloud-builders/kubectl'
+  entrypoint: 'bash'
+  dir: $_CONFIG_REPO/$_ENV
+  args:
+  - '-c' # pass what follows as a command to bash
+  - |
+    gcloud container clusters get-credentials --zone=$_CLUSTER_ZONE --project=$_CLUSTER_PROJECT $_CLUSTER_NAME
+    kubectl get deployment -o yaml > $_CLUSTER_NAME-deployments.yaml
+
+- id: 'Commit'
+  name: 'gcr.io/cloud-builders/git'
+  dir: $_CONFIG_REPO/$_ENV
+  args: ['commit','-am "Cloud Build Update Manifest"']
+
+
+- id: 'GitHub Push'
+  name: 'gcr.io/cloud-builders/git'
+  dir: $_CONFIG_REPO
+  env:
+  - GIT_SSH=/workspace/src/git-ssh.sh
+  args:
+  - push
+  - git@github.com:bkauf/$_CONFIG_REPO
+  - master
+  volumes:
+  - name: 'ssh-setup'
+    path: /root/.ssh

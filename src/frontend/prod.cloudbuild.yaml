@@ -1,24 +1,24 @@
 steps:
 
-#- id: 'Create Container'
-#  name: 'gcr.io/cloud-builders/docker'
-#  args: ['build', '--tag=gcr.io/$_IMAGE_REPO/frontend:$TAG_NAME', 'src/frontend/']
+- id: 'Create Container'
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '--tag=gcr.io/$_IMAGE_REPO/frontend:$TAG_NAME', 'src/frontend/']
 
-#- id: 'Push Container to Production registry'
-#  name: 'gcr.io/cloud-builders/docker'
-#  args: ["push", "gcr.io/$_IMAGE_REPO/frontend:$TAG_NAME"]
+- id: 'Push Container to Production registry'
+  name: 'gcr.io/cloud-builders/docker'
+  args: ["push", "gcr.io/$_IMAGE_REPO/frontend:$TAG_NAME"]
 
-#- id: 'Deploy to Production Cluster'
-#  name: 'gcr.io/cloud-builders/kubectl'
-#  args:
-#  - 'set'
-#  - 'image'
-#  - 'deployment/frontend'
-#  - 'server=gcr.io/$_IMAGE_REPO/frontend:$TAG_NAME'
-#  env:
-#  - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_ZONE'
-#  - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'
-#  - 'CLOUDSDK_CORE_PROJECT=$_CLUSTER_PROJECT'
+- id: 'Deploy to Production Cluster'
+  name: 'gcr.io/cloud-builders/kubectl'
+  args:
+  - 'set'
+  - 'image'
+  - 'deployment/frontend'
+  - 'server=gcr.io/$_IMAGE_REPO/frontend:$TAG_NAME'
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_ZONE'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'
+  - 'CLOUDSDK_CORE_PROJECT=$_CLUSTER_PROJECT'
 
 
   # Prepare for github
@@ -35,35 +35,33 @@ steps:
   - name: 'ssh-setup'
     path: /root/.ssh
 
-- id: 'Git Clone demo-cfg'
-  name: 'gcr.io/cloud-builders/git'
-  args:['clone', 'https://github.com/bkauf/microservices-demo-cfg.git']
-
 
 - id: 'Get Updated Manifest'
   name: 'gcr.io/cloud-builders/kubectl'
   entrypoint: 'bash'
-  dir: microservices-demo-cfg/prod
+  dir: release
   args:
   - '-c' # pass what follows as a command to bash
   - |
     gcloud container clusters get-credentials --zone=$_CLUSTER_ZONE --project=$_CLUSTER_PROJECT $_CLUSTER_NAME
+    mkdir demo-cfg
+    cd demo-cfg
     kubectl get deployment -o yaml > deployment-manifest.yaml
 
 - id: 'Copy Manifest'
   name: gcr.io/cloud-builders/gsutil
-  dir: microservices-demo-cfg/prod
+  dir: release
   args: ['cp','deployment-manifest.yaml', 'gs://$PROJECT_ID-github/deployment-manifest.yaml']
 
 - id: 'Git Checkout, commit'
   name: 'gcr.io/cloud-builders/git'
-  dir: microservices-demo-cfg/prod
   entrypoint: 'bash'
   args:
   - '-c' # pass what follows as a command to bash
   - |
     git checkout -B "master"
     git config --global user.email cloudbuild@cicdnotary.com
+    git add release/deployment-manifest.yaml
     git commit -am "Cloud Build Update Manifest"
 
 #git add release/deployment-manifest.yaml
@@ -75,12 +73,11 @@ steps:
 
 - id: 'GitHub Push'
   name: 'gcr.io/cloud-builders/git'
-  dir: microservices-demo-cfg/prod
   env:
   - GIT_SSH=src/git-ssh.sh
   args:
   - push
-  - git@github.com:bkauf/microservices-demo-cfg
+  - git@github.com:bkauf/microservices-demo
   - master
   volumes:
   - name: 'ssh-setup'

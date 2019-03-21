@@ -35,7 +35,7 @@
 
   - id: 'Git Clone demo-cfg'
     name: 'gcr.io/cloud-builders/git'
-    args:['clone', 'https://github.com/bkauf/microservices-demo-cfg.git']
+    args: ['clone', 'https://github.com/bkauf/microservices-demo-cfg.git']
 
 
   - id: 'Get Updated Manifest'

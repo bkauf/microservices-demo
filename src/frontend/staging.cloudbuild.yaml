@@ -66,10 +66,7 @@ steps:
   args:
   - '-c' # pass what follows as a command to bash
   - |
-
     git commit -am "Cloud Build Update Manifest"
-
-  #  git add $_CLUSTER_NAME-deployments.yaml
 
 - id: 'GitHub Push'
   name: 'gcr.io/cloud-builders/git'

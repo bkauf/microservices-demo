@@ -46,9 +46,7 @@ steps:
     cd microservices-demo-cfg
     git checkout -B "master"
     git config --global user.email cloudbuild@cicdnotary.com
-    touch production-cluster-2-delployments.yaml
-    git commit -am "Cloud Build Update Manifest"
-
+    
 
 - id: 'Get Updated Manifest'
   name: 'gcr.io/cloud-builders/kubectl'
@@ -61,6 +59,16 @@ steps:
     mkdir demo-cfg
     cd demo-cfg
     kubectl get deployment -o yaml > $_CLUSTER_NAME-deployments.yaml
+
+
+- id: 'commit'
+  name: 'gcr.io/cloud-builders/git'
+  entrypoint: 'bash'
+  args:
+  - '-c' # pass what follows as a command to bash
+  - |
+    git add .
+    git commit -am "Cloud Build Update Manifest"
 
 
 - id: 'GitHub Push'

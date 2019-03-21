@@ -56,6 +56,7 @@ steps:
   args:
   - '-c' # pass what follows as a command to bash
   - |
+    git checkout -B "master"
     git config --global user.email brian.kaufman@gmail.com
     git commit -am "Cloud Build Update Manifest"
 

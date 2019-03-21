@@ -3,11 +3,11 @@ steps:
   name: 'gcr.io/cloud-builders/docker'
   args: ['build', '--tag=gcr.io/$_IMAGE_REPO/frontend:$COMMIT_SHA', 'src/frontend/']
 
-- id: 'Push Container to Staging registry'
+- id: 'Push Container to $_ENV registry'
   name: 'gcr.io/cloud-builders/docker'
   args: ["push", "gcr.io/$_IMAGE_REPO/frontend:$COMMIT_SHA"]
 
-- id: 'Deploy to Staging Cluster'
+- id: 'Deploy to $_ENV Cluster'
   name: 'gcr.io/cloud-builders/kubectl'
   args:
   - 'set'
@@ -18,9 +18,6 @@ steps:
   - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_ZONE'
   - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'
   - 'CLOUDSDK_CORE_PROJECT=$_CLUSTER_PROJECT'
-
-
-
 
 
 - id: 'Copy Git SSH Auth Key into Source Folder'
@@ -50,7 +47,7 @@ steps:
 - id: 'Get Updated Manifest'
   name: 'gcr.io/cloud-builders/kubectl'
   entrypoint: 'bash'
-  dir: $_CONFIG_REPO/staging
+  dir: $_CONFIG_REPO/$_ENV
   args:
   - '-c' # pass what follows as a command to bash
   - |
@@ -60,12 +57,12 @@ steps:
 - id: 'Commit and Push'
   name: 'gcr.io/cloud-builders/git'
   entrypoint: 'bash'
-  dir: $_CONFIG_REPO/staging
+  dir: $_CONFIG_REPO/$_ENV
   args:
   - '-c' # pass what follows as a command to bash
   - |
     git commit -am "Cloud Build Update Manifest"
-    git ssh -i /workspace/id_rsa push git@github.com:bkauf/$_CONFIG_REPO master
+    git push origin master
   volumes:
   - name: 'ssh-setup'
     path: /root/.ssh

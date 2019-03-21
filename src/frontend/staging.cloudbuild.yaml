@@ -33,8 +33,6 @@ steps:
   - |
     chmod 600 /workspace/id_rsa
     ssh-keyscan github.com > /root/.ssh/known_hosts
-    rm ~/.gitconfig
-    touch ~/.gitconfig
     git clone https://github.com/bkauf/$_CONFIG_REPO.git
     cd $_CONFIG_REPO
     git checkout -B "master"
@@ -53,16 +51,22 @@ steps:
   - |
     gcloud container clusters get-credentials --zone=$_CLUSTER_ZONE --project=$_CLUSTER_PROJECT $_CLUSTER_NAME
     kubectl get deployment -o yaml > $_CLUSTER_NAME-deployments.yaml
-    
-- id: 'Commit and Push'
+
+- id: 'Commit'
   name: 'gcr.io/cloud-builders/git'
-  entrypoint: 'bash'
   dir: $_CONFIG_REPO/$_ENV
+  args:[' commit',''-am "Cloud Build Update Manifest"']
+
+
+- id: 'GitHub Push'
+  name: 'gcr.io/cloud-builders/git'
+  dir: $_CONFIG_REPO
+  env:
+  - GIT_SSH=src/git-ssh.sh
   args:
-  - '-c' # pass what follows as a command to bash
-  - |
-    git commit -am "Cloud Build Update Manifest"
-    git push origin master
+  - push
+  - git@github.com:bkauf/$_CONFIG_REPO
+  - master
   volumes:
   - name: 'ssh-setup'
     path: /root/.ssh

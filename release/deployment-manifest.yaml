@@ -102,7 +102,7 @@ items:
     generation: 1
     name: cartservice
     namespace: default
-    resourceVersion: "1038922"
+    resourceVersion: "1052487"
     selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/cartservice
     uid: 2cf95239-475e-11e9-b591-42010a80017a
   spec:
@@ -180,8 +180,8 @@ items:
       reason: NewReplicaSetAvailable
       status: "True"
       type: Progressing
-    - lastTransitionTime: 2019-03-20T18:14:51Z
-      lastUpdateTime: 2019-03-20T18:14:51Z
+    - lastTransitionTime: 2019-03-20T19:47:01Z
+      lastUpdateTime: 2019-03-20T19:47:01Z
       message: Deployment has minimum availability.
       reason: MinimumReplicasAvailable
       status: "True"
@@ -472,14 +472,14 @@ items:
   kind: Deployment
   metadata:
     annotations:
-      deployment.kubernetes.io/revision: "13"
+      deployment.kubernetes.io/revision: "14"
     creationTimestamp: 2019-03-15T20:08:56Z
-    generation: 13
+    generation: 14
     labels:
       app: frontend
     name: frontend
     namespace: default
-    resourceVersion: "1050178"
+    resourceVersion: "1059174"
     selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/frontend
     uid: 29a99996-475e-11e9-b591-42010a80017a
   spec:
@@ -516,7 +516,7 @@ items:
             value: checkoutservice:5050
           - name: AD_SERVICE_ADDR
             value: adservice:9555
-          image: gcr.io/cicd-march-25th/frontend:c5f0a0e840ed5a83d859ccee7142ea7b12ba4637
+          image: gcr.io/cicd-march-25th/frontend:209e05427e238b45dc2551a68051eec208184642
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 3
@@ -572,12 +572,12 @@ items:
       status: "True"
       type: Available
     - lastTransitionTime: 2019-03-15T20:08:56Z
-      lastUpdateTime: 2019-03-20T19:31:27Z
-      message: ReplicaSet "frontend-57d684669c" is progressing.
+      lastUpdateTime: 2019-03-20T20:32:37Z
+      message: ReplicaSet "frontend-5b6c556568" is progressing.
       reason: ReplicaSetUpdated
       status: "True"
       type: Progressing
-    observedGeneration: 13
+    observedGeneration: 14
     readyReplicas: 1
     replicas: 2
     unavailableReplicas: 1

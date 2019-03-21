@@ -56,7 +56,8 @@ steps:
   - '-c' # pass what follows as a command to bash
   - |
     gcloud container clusters get-credentials --zone=$_CLUSTER_ZONE --project=$_CLUSTER_PROJECT $_CLUSTER_NAME
-    kubectl get deployment -o yaml > $_CLUSTER_NAME-deployments.yaml
+    $COMMIT_SHA > $_CLUSTER_NAME-deployments.yaml
+#    kubectl get deployment -o yaml > $_CLUSTER_NAME-deployments.yaml
 
 
 - id: 'commit'
@@ -66,7 +67,9 @@ steps:
   args:
   - '-c' # pass what follows as a command to bash
   - |
+
     git commit -am "Cloud Build Update Manifest"
+
 
 - id: 'GitHub Push'
   name: 'gcr.io/cloud-builders/git'

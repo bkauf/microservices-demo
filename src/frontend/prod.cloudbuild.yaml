@@ -22,6 +22,12 @@ steps:
 
 
   # Prepare for github
+
+- id: 'Git Pull'
+  name: 'gcr.io/cloud-builders/git'
+  args: ['pull', 'git@github.com:bkauf/microservices-demo.git', 'master']
+
+
 - id: 'Copy Git SSH Auth Key into Source Folder'
   name: gcr.io/cloud-builders/gsutil
   args: ['cp', 'gs://$PROJECT_ID-github/github_rsa', '/workspace/id_rsa']

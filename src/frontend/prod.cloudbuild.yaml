@@ -62,7 +62,6 @@ steps:
     git commit -am "Cloud Build Update Manifest"
 
 #  git checkout -B "master"
-#
 
 - id: 'GitHub Push'
   name: 'gcr.io/cloud-builders/git'

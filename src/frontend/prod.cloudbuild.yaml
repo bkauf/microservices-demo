@@ -58,10 +58,10 @@ steps:
   - '-c' # pass what follows as a command to bash
   - |
     git checkout -B "master"
-    git add release/deployment-manifest.yaml
     git config --global user.email brian.kaufman@gmail.com
     git commit -am "Cloud Build Update Manifest"
 
+#git add release/deployment-manifest.yaml
 
 - id: 'Git Pull'
   name: 'gcr.io/cloud-builders/git'

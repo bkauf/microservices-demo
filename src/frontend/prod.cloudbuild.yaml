@@ -23,9 +23,7 @@ steps:
 
   # Prepare for github
 
-- id: 'Git Clone'
-  name: 'gcr.io/cloud-builders/git'
-  args: ['clone', '-b', 'master', 'https://github.com/bkauf/microservices-demo.git']
+
 
 
 - id: 'Copy Git SSH Auth Key into Source Folder'
@@ -67,7 +65,11 @@ steps:
     git config --global user.email brian.kaufman@gmail.com
     git commit -am "Cloud Build Update Manifest"
 
-#  git checkout -B "master"
+
+- id: 'Git pull'
+  name: 'gcr.io/cloud-builders/git'
+  args: ['pull', 'origin', 'master']
+
 
 - id: 'GitHub Push'
   name: 'gcr.io/cloud-builders/git'

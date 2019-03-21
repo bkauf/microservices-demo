@@ -102,7 +102,7 @@ items:
     generation: 1
     name: cartservice
     namespace: default
-    resourceVersion: "1223359"
+    resourceVersion: "1242188"
     selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/cartservice
     uid: 5fc901d8-4760-11e9-ad29-42010a8000b4
   spec:
@@ -180,8 +180,8 @@ items:
       reason: NewReplicaSetAvailable
       status: "True"
       type: Progressing
-    - lastTransitionTime: 2019-03-21T15:26:28Z
-      lastUpdateTime: 2019-03-21T15:26:28Z
+    - lastTransitionTime: 2019-03-21T17:34:38Z
+      lastUpdateTime: 2019-03-21T17:34:38Z
       message: Deployment has minimum availability.
       reason: MinimumReplicasAvailable
       status: "True"
@@ -472,14 +472,14 @@ items:
   kind: Deployment
   metadata:
     annotations:
-      deployment.kubernetes.io/revision: "6"
+      deployment.kubernetes.io/revision: "7"
     creationTimestamp: 2019-03-15T20:24:45Z
-    generation: 6
+    generation: 7
     labels:
       app: frontend
     name: frontend
     namespace: default
-    resourceVersion: "1225891"
+    resourceVersion: "1254606"
     selfLink: /apis/extensions/v1beta1/namespaces/default/deployments/frontend
     uid: 5f5873aa-4760-11e9-ad29-42010a8000b4
   spec:
@@ -516,7 +516,7 @@ items:
             value: checkoutservice:5050
           - name: AD_SERVICE_ADDR
             value: adservice:9555
-          image: gcr.io/cicd-march-25th-prod/frontend:p4.7.1
+          image: gcr.io/cicd-march-25th-prod/frontend:p4.7.2
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 3
@@ -572,12 +572,12 @@ items:
       status: "True"
       type: Available
     - lastTransitionTime: 2019-03-15T20:24:45Z
-      lastUpdateTime: 2019-03-21T15:43:41Z
-      message: ReplicaSet "frontend-84d48bfdd6" is progressing.
+      lastUpdateTime: 2019-03-21T18:59:20Z
+      message: ReplicaSet "frontend-5c899d79cc" is progressing.
       reason: ReplicaSetUpdated
       status: "True"
       type: Progressing
-    observedGeneration: 6
+    observedGeneration: 7
     readyReplicas: 1
     replicas: 2
     unavailableReplicas: 1

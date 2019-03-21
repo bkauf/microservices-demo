@@ -30,24 +30,30 @@ steps:
 
 - id: 'Prepare Git Hub'
   name: 'gcr.io/cloud-builders/gcloud'
-  dir: /workspace/
+  dir: /workspace/src
   entrypoint: './githubssh.sh'
   volumes:
   - name: 'ssh-setup'
     path: /root/.ssh
 
-
-
-
-
-
-
+- id: 'Git Clone, Git Checkout, commit'
+  name: 'gcr.io/cloud-builders/git'
+  entrypoint: 'bash'
+  args:
+  - '-c' # pass what follows as a command to bash
+  - |
+    git clone https://github.com/bkauf/microservices-demo-cfg.git
+    cd microservices-demo-cfg
+    git checkout -B "master"
+    git config --global user.email cloudbuild@cicdnotary.com
+    touch production-cluster-2-delployments.yaml
+    git commit -am "Cloud Build Update Manifest"
 
 - id: 'GitHub Push'
   name: 'gcr.io/cloud-builders/git'
   dir: microservices-demo-cfg
   env:
-  - GIT_SSH=src/git-ssh.sh
+  - GIT_SSH=/workshapce/src/git-ssh.sh
   args:
   - push
   - git@github.com:bkauf/microservices-demo

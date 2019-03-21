@@ -45,7 +45,7 @@ steps:
     gcloud container clusters get-credentials --zone=$_CLUSTER_ZONE --project=$_CLUSTER_PROJECT $_CLUSTER_NAME
     kubectl get deployment -o yaml > deployment-manifest.yaml
 
-- id: 'Copy manifest'
+- id: 'Copy Manifest'
   name: gcr.io/cloud-builders/gsutil
   dir: release
   args: ['cp','deployment-manifest.yaml', 'gs://$PROJECT_ID-github/deployment-manifest.yaml']
@@ -59,7 +59,7 @@ steps:
     git config --global user.email brian.kaufman@gmail.com
     git checkout -B "staging"
     git add release/deployment-manifest.yaml
-    git commit -am "Cloud Build update manifest"
+    git commit -am "Cloud Build Update Manifest"
 
 - id: 'GitHub Push'
   name: 'gcr.io/cloud-builders/git'

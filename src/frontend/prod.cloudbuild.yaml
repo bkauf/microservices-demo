@@ -63,9 +63,9 @@ steps:
 
 #git add release/deployment-manifest.yaml
 
-- id: 'Git Pull'
-  name: 'gcr.io/cloud-builders/git'
-  args: ['pull', 'origin', 'master']
+#- id: 'Git Pull'
+#  name: 'gcr.io/cloud-builders/git'
+#  args: ['pull', 'origin', 'master']
 
 
 - id: 'GitHub Push'

@@ -1,4 +1,4 @@
-#steps:
+steps:
 #- id: 'Create Container'
 #  name: 'gcr.io/cloud-builders/docker'
 #  args: ['build', '--tag=gcr.io/$_IMAGE_REPO/frontend:$COMMIT_SHA', 'src/frontend/']

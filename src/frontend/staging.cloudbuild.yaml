@@ -21,18 +21,64 @@
 
 
 
-  - id: 'Copy Git SSH Auth Key into Source Folder'
-    name: gcr.io/cloud-builders/gsutil
-    args: ['cp', 'gs://$PROJECT_ID-github/github_rsa', '/workspace/id_rsa']
+- id: 'Copy Git SSH Auth Key into Source Folder'
+  name: gcr.io/cloud-builders/gsutil
+  args: ['cp', 'gs://$PROJECT_ID-github/github_rsa', '/workspace/id_rsa']
 
-  - id: 'Prepare Git Hub'
-    name: 'gcr.io/cloud-builders/gcloud'
-    dir: /workspace/src
-    entrypoint: './githubssh.sh'
+- id: 'Prepare Git Hub'
+  name: 'gcr.io/cloud-builders/gcloud'
+  dir: /workspace/src
+  entrypoint: './githubssh.sh'
+  volumes:
+  - name: 'ssh-setup'
+    path: /root/.ssh
+
+- id: 'Git Clone demo-cfg'
+  name: 'gcr.io/cloud-builders/git'
+  args: ['clone', 'https://github.com/bkauf/microservices-demo-cfg.git']
+
+- id: 'Get Updated Manifest'
+  name: 'gcr.io/cloud-builders/kubectl'
+  entrypoint: 'bash'
+  dir: microservices-demo-cfg/staging
+  args:
+  - '-c' # pass what follows as a command to bash
+  - |
+    gcloud container clusters get-credentials --zone=$_CLUSTER_ZONE --project=$_CLUSTER_PROJECT $_CLUSTER_NAME
+    kubectl get deployment -o yaml > $_CLUSTER_NAME-deployments.yaml
+
+  - id: 'Copy Manifest'
+    name: gcr.io/cloud-builders/gsutil
+    dir: microservices-demo-cfg/staging
+    args: ['cp','$_CLUSTER_NAME-deployments.yaml', 'gs://$PROJECT_ID-github/$_CLUSTER_NAME-deployments.yaml']
+
+  - id: 'Git Checkout, commit'
+    name: 'gcr.io/cloud-builders/git'
+    dir: microservices-demo-cfg/
+    entrypoint: 'bash'
+    args:
+    - '-c' # pass what follows as a command to bash
+    - |
+      git checkout -B "master"
+      git config --global user.email cloudbuild@cicdnotary.com
+      git commit -am "Cloud Build Update Manifest"
+
+  #git add release/deployment-manifest.yaml
+
+  #- id: 'Git Pull'
+  #  name: 'gcr.io/cloud-builders/git'
+  #  args: ['pull', 'origin', 'master']
+
+
+  - id: 'GitHub Push'
+    name: 'gcr.io/cloud-builders/git'
+    dir: microservices-demo-cfg/
+    env:
+    - GIT_SSH=src/git-ssh.sh
+    args:
+    - push
+    - git@github.com:bkauf/microservices-demo-cfg
+    - master
     volumes:
     - name: 'ssh-setup'
       path: /root/.ssh
-
-  - id: 'Git Clone demo-cfg'
-    name: 'gcr.io/cloud-builders/git'
-    args: ['clone', 'https://github.com/bkauf/microservices-demo-cfg.git']

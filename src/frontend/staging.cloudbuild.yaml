@@ -1,23 +1,23 @@
 steps:
-#- id: 'Create Container'
-#  name: 'gcr.io/cloud-builders/docker'
-#  args: ['build', '--tag=gcr.io/$_IMAGE_REPO/frontend:$COMMIT_SHA', 'src/frontend/']
+- id: 'Create Container'
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '--tag=gcr.io/$_IMAGE_REPO/frontend:$COMMIT_SHA', 'src/frontend/']
 
-#- id: 'Push Container to Staging registry'
-#  name: 'gcr.io/cloud-builders/docker'
-#  args: ["push", "gcr.io/$_IMAGE_REPO/frontend:$COMMIT_SHA"]
+- id: 'Push Container to Staging registry'
+  name: 'gcr.io/cloud-builders/docker'
+  args: ["push", "gcr.io/$_IMAGE_REPO/frontend:$COMMIT_SHA"]
 
-#- id: 'Deploy to Staging Cluster'
-#  name: 'gcr.io/cloud-builders/kubectl'
-#  args:
-#  - 'set'
-#  - 'image'
-#  - 'deployment/frontend'
-#  - 'server=gcr.io/$_IMAGE_REPO/frontend:$COMMIT_SHA'
-#  env:
-#  - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_ZONE'
-#  - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'
-#  - 'CLOUDSDK_CORE_PROJECT=$_CLUSTER_PROJECT'
+- id: 'Deploy to Staging Cluster'
+  name: 'gcr.io/cloud-builders/kubectl'
+  args:
+  - 'set'
+  - 'image'
+  - 'deployment/frontend'
+  - 'server=gcr.io/$_IMAGE_REPO/frontend:$COMMIT_SHA'
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_ZONE'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'
+  - 'CLOUDSDK_CORE_PROJECT=$_CLUSTER_PROJECT'
 
 
 
@@ -42,8 +42,8 @@ steps:
   args:
   - '-c' # pass what follows as a command to bash
   - |
-    git clone https://github.com/bkauf/microservices-demo-cfg.git
-    cd microservices-demo-cfg
+    git clone https://github.com/bkauf/$_CONFIG_REPO.git
+    cd $_CONFIG_REPO
     git checkout -B "master"
     git config --global user.email cloudbuild@cicdnotary.com
 
@@ -51,34 +51,31 @@ steps:
 - id: 'Get Updated Manifest'
   name: 'gcr.io/cloud-builders/kubectl'
   entrypoint: 'bash'
-  dir: microservices-demo-cfg/staging
+  dir: $_CONFIG_REPO/staging
   args:
   - '-c' # pass what follows as a command to bash
   - |
     gcloud container clusters get-credentials --zone=$_CLUSTER_ZONE --project=$_CLUSTER_PROJECT $_CLUSTER_NAME
-    $COMMIT_SHA > $_CLUSTER_NAME-deployments.yaml
-#    kubectl get deployment -o yaml > $_CLUSTER_NAME-deployments.yaml
-
+    kubectl get deployment -o yaml > $_CLUSTER_NAME-deployments.yaml
 
 - id: 'commit'
   name: 'gcr.io/cloud-builders/git'
   entrypoint: 'bash'
-  dir: microservices-demo-cfg/staging
+  dir: $_CONFIG_REPO/staging
   args:
   - '-c' # pass what follows as a command to bash
   - |
 
     git commit -am "Cloud Build Update Manifest"
 
-
 - id: 'GitHub Push'
   name: 'gcr.io/cloud-builders/git'
-  dir: microservices-demo-cfg
+  dir: $_CONFIG_REPO
   env:
   - GIT_SSH=/workspace/src/git-ssh.sh
   args:
   - push
-  - git@github.com:bkauf/microservices-demo-cfg
+  - git@github.com:bkauf/$_CONFIG_REPO
   - master
   volumes:
   - name: 'ssh-setup'

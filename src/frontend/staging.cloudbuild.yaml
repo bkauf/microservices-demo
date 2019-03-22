@@ -7,25 +7,36 @@ steps:
   name: 'gcr.io/cloud-builders/docker'
   args: ["push", "gcr.io/$_IMAGE_REPO/frontend:$COMMIT_SHA"]
 
-- id: 'Deploy to Staging Cluster'
+#- id: 'Deploy to Staging Cluster'
+#  name: 'gcr.io/cloud-builders/kubectl'
+#  args:
+#  - 'set'
+#  - 'image'
+#  - 'deployment/frontend'
+#  - 'server=gcr.io/$_IMAGE_REPO/frontend:$COMMIT_SHA'
+#  env:
+#  - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_ZONE'
+#  - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'
+#  - 'CLOUDSDK_CORE_PROJECT=$_CLUSTER_PROJECT'
+
+
+- id: 'Deploy and get Manifest'
   name: 'gcr.io/cloud-builders/kubectl'
+  entrypoint: 'bash'
+  dir: $_CONFIG_REPO/$_ENV
   args:
-  - 'set'
-  - 'image'
-  - 'deployment/frontend'
-  - 'server=gcr.io/$_IMAGE_REPO/frontend:$COMMIT_SHA'
-  env:
-  - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_ZONE'
-  - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'
-  - 'CLOUDSDK_CORE_PROJECT=$_CLUSTER_PROJECT'
+  - '-c' # pass what follows as a command to bash
+  - |
+    gcloud container clusters get-credentials --zone=$_CLUSTER_ZONE --project=$_CLUSTER_PROJECT $_CLUSTER_NAME
+    kubectl set image deployment/frontend server=gcr.io/$_IMAGE_REPO/frontend:$COMMIT_SHA
+    kubectl get deployment -o yaml > $_CLUSTER_NAME-deployments.yaml
 
   # Prepare for github to store k8s config
-
 
 - id: 'Copy Git SSH Auth Key into Source Folder'
   name: gcr.io/cloud-builders/gsutil
   args: ['cp', 'gs://$PROJECT_ID-github/github_rsa', '/workspace/id_rsa']
-
+#^not good!
 
 - id: 'Connect, Git Clone, Git Checkout'
   name: 'gcr.io/cloud-builders/git'
@@ -36,6 +47,7 @@ steps:
     chmod 600 /workspace/id_rsa
     ssh-keyscan github.com > /root/.ssh/known_hosts
     git clone https://github.com/bkauf/$_CONFIG_REPO.git
+    mv $_CLUSTER_NAME-deployments.yaml $_CONFIG_REPO/$_ENV/.
     cd $_CONFIG_REPO
     git checkout -B "master"
     git config --global user.email cloudbuild@cicdnotary.com
@@ -44,15 +56,15 @@ steps:
     path: /root/.ssh
 
 
-- id: 'Get Updated Manifest'
-  name: 'gcr.io/cloud-builders/kubectl'
-  entrypoint: 'bash'
-  dir: $_CONFIG_REPO/$_ENV
-  args:
-  - '-c' # pass what follows as a command to bash
-  - |
-    gcloud container clusters get-credentials --zone=$_CLUSTER_ZONE --project=$_CLUSTER_PROJECT $_CLUSTER_NAME
-    kubectl get deployment -o yaml > $_CLUSTER_NAME-deployments.yaml
+#- id: 'Get Updated Manifest'
+#  name: 'gcr.io/cloud-builders/kubectl'
+#  entrypoint: 'bash'
+#  dir: $_CONFIG_REPO/$_ENV
+#  args:
+#  - '-c' # pass what follows as a command to bash
+#  - |
+#    gcloud container clusters get-credentials --zone=$_CLUSTER_ZONE --project=$_CLUSTER_PROJECT $_CLUSTER_NAME
+#    kubectl get deployment -o yaml > $_CLUSTER_NAME-deployments.yaml
 
 - id: 'Commit'
   name: 'gcr.io/cloud-builders/git'

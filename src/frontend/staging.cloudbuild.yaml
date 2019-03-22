@@ -37,7 +37,7 @@ steps:
   args: ['cp', 'gs://$PROJECT_ID-github/github_rsa', '/workspace/id_rsa']
 #^not good!
 
-- id: 'Connect, Git Clone, Git Checkout'
+- id: 'Connect, Git Clone, Git Commit'
   name: 'gcr.io/cloud-builders/git'
   entrypoint: 'bash'
   args:
@@ -48,7 +48,6 @@ steps:
     git clone https://github.com/bkauf/$_CONFIG_REPO.git
     cat $_CLUSTER_NAME-deployments.yaml  > $_CONFIG_REPO/$_ENV/$_CLUSTER_NAME-deployments.yaml
     cd $_CONFIG_REPO
-    git checkout -B "master"
     git config --global user.email cloudbuild@cicdnotary.com
     git commit -am 'Cloud Build Update Manifest $SHORT_SHA'
   volumes:

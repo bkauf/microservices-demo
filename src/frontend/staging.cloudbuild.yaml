@@ -50,7 +50,7 @@ steps:
     cd $_CONFIG_REPO
     git checkout -B "master"
     git config --global user.email cloudbuild@cicdnotary.com
-    git commit -am "Cloud Build Update Manifest
+    git commit -am 'Cloud Build Update Manifest $COMMIT_SHA'
   volumes:
   - name: 'ssh-setup'
     path: /root/.ssh

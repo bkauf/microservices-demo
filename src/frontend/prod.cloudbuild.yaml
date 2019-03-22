@@ -55,7 +55,6 @@ steps:
     gcloud container clusters get-credentials --zone=$_CLUSTER_ZONE --project=$_CLUSTER_PROJECT $_CLUSTER_NAME
     kubectl get deployment -o yaml > $_CLUSTER_NAME-deployments.yaml
 
-
 - id: 'Commit'
   name: 'gcr.io/cloud-builders/git'
   dir: $_CONFIG_REPO/$_ENV

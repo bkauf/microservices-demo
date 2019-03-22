@@ -7,17 +7,6 @@ steps:
   name: 'gcr.io/cloud-builders/docker'
   args: ["push", "gcr.io/$_IMAGE_REPO/frontend:$SHORT_SHA"]
 
-#- id: 'Deploy to Staging Cluster'
-#  name: 'gcr.io/cloud-builders/kubectl'
-#  args:
-#  - 'set'
-#  - 'image'
-#  - 'deployment/frontend'
-#  - 'server=gcr.io/$_IMAGE_REPO/frontend:$SHORT_SHA'
-#  env:
-#  - 'CLOUDSDK_COMPUTE_ZONE=$_CLUSTER_ZONE'
-#  - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'
-#  - 'CLOUDSDK_CORE_PROJECT=$_CLUSTER_PROJECT'
 
 - id: 'Deploy and get Manifest'
   name: 'gcr.io/cloud-builders/kubectl'
@@ -29,7 +18,7 @@ steps:
     kubectl set image deployment/frontend server=gcr.io/$_IMAGE_REPO/frontend:$SHORT_SHA
     kubectl get deployment -o yaml > $_CLUSTER_NAME-deployments.yaml
 
-  # Prepare for github to store k8s config
+# Prepare for github to store k8s config
 
 - id: 'Copy Git SSH Auth Key into Source Folder'
   name: gcr.io/cloud-builders/gsutil

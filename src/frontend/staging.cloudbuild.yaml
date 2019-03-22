@@ -19,7 +19,6 @@ steps:
 #  - 'CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER_NAME'
 #  - 'CLOUDSDK_CORE_PROJECT=$_CLUSTER_PROJECT'
 
-
 - id: 'Deploy and get Manifest'
   name: 'gcr.io/cloud-builders/kubectl'
   entrypoint: 'bash'

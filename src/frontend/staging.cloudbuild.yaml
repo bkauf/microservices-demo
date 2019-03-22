@@ -47,7 +47,7 @@ steps:
     chmod 600 /workspace/id_rsa
     ssh-keyscan github.com > /root/.ssh/known_hosts
     git clone https://github.com/bkauf/$_CONFIG_REPO.git
-    mv $_CLUSTER_NAME-deployments.yaml $_CONFIG_REPO/$_ENV/.
+    cat $_CLUSTER_NAME-deployments.yaml  > $_CONFIG_REPO/$_ENV/$_CLUSTER_NAME-deployments.yaml
     cd $_CONFIG_REPO
     git checkout -B "master"
     git config --global user.email cloudbuild@cicdnotary.com

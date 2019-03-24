@@ -7,11 +7,6 @@ steps:
   name: 'gcr.io/cloud-builders/docker'
   args: ["push", "gcr.io/$_IMAGE_REPO/frontend:$SHORT_SHA"]
 
-  # Run unit tests
-- name: 'gcr.io/cloud-builders/docker'
-  id: 'unit-test'
-  args: ['run', 'gcr.io/$_IMAGE_REPO/frontend:$SHORT_SHA', 'go', 'test']
-
 
 - id: 'Deploy and get Manifest'
   name: 'gcr.io/cloud-builders/kubectl'

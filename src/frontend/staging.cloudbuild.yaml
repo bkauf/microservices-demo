@@ -10,7 +10,6 @@ steps:
   # Run unit tests
 - name: 'gcr.io/cloud-builders/docker'
   id: 'unit-test'
-  waitFor: 'build-image'
   args: ['run', 'gcr.io/$_IMAGE_REPO/frontend:$SHORT_SHA', 'go', 'test']
 
 

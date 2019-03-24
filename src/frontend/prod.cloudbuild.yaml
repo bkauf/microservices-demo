@@ -1,11 +1,11 @@
 steps:
 - id: 'Create Container'
   name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '--tag=gcr.io/$_IMAGE_REPO/frontend:$SHORT_SHA', 'src/frontend/']
+  args: ['build', '--tag=gcr.io/$_IMAGE_REPO/frontend:$TAG_NAME', 'src/frontend/']
 
 - id: 'Push Container to Production registry'
   name: 'gcr.io/cloud-builders/docker'
-  args: ["push", "gcr.io/$_IMAGE_REPO/frontend:$SHORT_SHA"]
+  args: ["push", "gcr.io/$_IMAGE_REPO/frontend:$TAG_NAME"]
 
 
 - id: 'Deploy and get Manifest'
@@ -15,7 +15,7 @@ steps:
   - '-c' # pass what follows as a command to bash
   - |
     gcloud container clusters get-credentials --zone=$_CLUSTER_ZONE --project=$_CLUSTER_PROJECT $_CLUSTER_NAME
-    kubectl set image deployment/frontend server=gcr.io/$_IMAGE_REPO/frontend:$SHORT_SHA
+    kubectl set image deployment/frontend server=gcr.io/$_IMAGE_REPO/frontend:$TAG_NAME
     kubectl get deployment -o yaml > $_CLUSTER_NAME-deployments.yaml
 
   # Prepare for github to store k8s config
@@ -36,7 +36,7 @@ steps:
     cat $_CLUSTER_NAME-deployments.yaml  > $_CONFIG_REPO/$_ENV/$_CLUSTER_NAME-deployments.yaml
     cd $_CONFIG_REPO
     git config --global user.email cloudbuild@cicdnotary.com
-    git commit -am 'Cloud Build Update Manifest $SHORT_SHA'
+    git commit -am 'Cloud Build Update Manifest $TAG_NAME'
   volumes:
   - name: 'ssh-setup'
     path: /root/.ssh
